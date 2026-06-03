@@ -7,7 +7,9 @@ const authRoutes = require("./routes/authRoutes");
 const taskRoutes = require("./routes/taskRoutes");
 const dataRoutes = require("./routes/dataRoutes");
 
-dotenv.config();
+dotenv.config({
+  path: path.join(__dirname, "..", ".env"),
+});
 
 const app = express();
 app.use(cors());

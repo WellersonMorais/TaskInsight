@@ -198,7 +198,7 @@ curl http://localhost:5000
 
 ## 👤 Responsável
 
-Equipe de Análise de Dados - TaskInsight
+Jéssica Costa
 
 ---
 

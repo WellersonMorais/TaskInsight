@@ -1,19 +1,92 @@
-# TaskInsight – Gestão de Produtividade
+# Projeto TaskInsight
 
-## Breve descrição do sistema
-O Taskinsight nasceu do desafio de unir a gestão operacional de tarefas à inteligência de dados. O sistema permite que usuários gerenciem suas atividades diárias em um ambiente seguro, enquanto um motor em Python processa essas informações para gerar insights sobre padrões de produtividade.
+Aplicação completa com backend, frontend e dados reais do dataset `Inova.PCD`, apresentada como plataforma `TaskInsight`.
 
-## Objetivo da plataforma
-No ambiente corporativo moderno, a gestão de tarefas vai além do simples registro de atividades; exige-se segurança no tráfego de informações e inteligência para entender gargalos de produtividade. O desafio consiste em desenvolver uma solução Full Stack que permita o controle de fluxo de trabalho de usuários autenticados, transformando dados operacionais em métricas acionáveis.
+## Estrutura
 
-## Estrutura inicial do projeto
-* **Front-end:** Interface de usuário construída como Single Page Application (SPA) em React, responsável pela interação, roteamento e consumo da API.
-* **Back-end / API:** Um sistema seguro para cadastro de usuários e gerenciamento de tarefas (CRUD), em que a segurança é garantida por autenticação JWT e camadas de proteção (Middlewares).
-* **Banco de Dados:** Base de dados NoSQL na nuvem para persistência de dados, com coleções para Users (dados de acesso criptografados) e Tasks (vinculadas ao ID do usuário).
-* **Python & Análise de Dados:** Um motor em Python integrado ao banco de dados MongoDB, responsável por realizar a limpeza de dados e gerar insights sobre o desempenho.
+- `backend/` - API Node.js + Express + MongoDB
+- `frontend/` - dashboard simples em HTML/JS
+- `data/` - CSVs do dataset
+- `.env.example` - variáveis de ambiente de exemplo
+- `.gitignore` - ignore de dependências e `.env`
 
-## Tecnologias previstas
-* **Front-end:** HTML5, CSS3, JavaScript (ES6) e React.
-* **Back-end:** Node.js, Express.js.
-* **Banco de Dados:** MongoDB (via Mongoose ODM).
-* **Dados e Segurança:** JWT (JSON Web Token), Bcrypt.js, Python 3, Pandas, Matplotlib, PyMongo.
+## Pré-requisitos
+
+- Node.js instalado
+- MongoDB local ou Atlas
+
+## Instalação
+
+1. Entre na pasta do backend:
+
+```bash
+cd backend
+```
+
+2. Instale as dependências:
+
+```bash
+npm install
+```
+
+3. Crie o arquivo `.env` com base em `.env.example`.
+
+## Importar dados para o MongoDB
+
+No diretório `backend` rode:
+
+```bash
+npm run seed
+```
+
+Isso importa:
+- `atividades.csv`
+- `responsaveis.csv`
+- `status_historico.csv`
+- usuário padrão para login
+
+## Usuário padrão
+
+- Email: `admin@taskinsight.com`
+- Senha: `senha123`
+
+## Executar a aplicação
+
+No diretório `backend` rode:
+
+```bash
+npm start
+```
+
+Depois abra no navegador na porta exibida no console.
+
+Se a porta `5000` estiver ocupada, o servidor tentará `5001` automaticamente.
+
+## Endpoints disponíveis
+
+- `POST /api/auth/register` - registra usuário
+- `POST /api/auth/login` - gera token JWT
+- `GET /api/tasks` - lista tarefas (autorizado)
+- `POST /api/tasks` - cria tarefa (autorizado)
+- `PUT /api/tasks/:id` - atualiza tarefa (autorizado)
+- `DELETE /api/tasks/:id` - remove tarefa (autorizado)
+- `GET /api/data/summary` - resumo das tarefas
+- `GET /api/data/analytics` - métricas adicionais
+- `GET /api/data/responsaveis` - lista responsáveis
+- `GET /api/data/status-history` - histórico de status
+
+## Frontend
+
+- Login com JWT
+- Criação de tarefas
+- Lista de tarefas com filtro por status e categoria
+- Concluir e excluir tarefas
+- Gráficos de status e categoria
+- Métricas de taxa de conclusão e lead time
+
+## Observações
+
+- O frontend é servido pela mesma API Express.
+- O login usa JWT e o token fica salvo no `localStorage`.
+- Se o MongoDB não estiver disponível, o backend usa um banco local em `backend/local-db.json`.
+- Se a porta `5000` já estiver ocupada, o servidor tentará `5001`.

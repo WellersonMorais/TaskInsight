@@ -1,0 +1,9 @@
+id,titulo,descricao,responsavel_id,status,data_criacao,data_vencimento,prioridade
+1,Desenvolver login,Implementar autenticação JWT,1,Concluído,2026-05-01,2026-05-15,Alta
+2,Criar dashboard,Design da interface principal,2,Em Progresso,2026-05-10,2026-06-10,Alta
+3,Testes unitários,Cobertura de testes do backend,1,Pendente,2026-06-01,2026-06-20,Média
+4,Documentação API,Documentar endpoints REST,4,Pendente,2026-06-01,2026-06-15,Média
+5,Otimização BD,Melhorar queries do MongoDB,1,Concluído,2026-05-20,2026-06-05,Alta
+6,Review código,Revisar pull requests,3,Em Progresso,2026-06-02,2026-06-08,Alta
+7,Deploy produção,Fazer deploy em produção,3,Pendente,2026-06-10,2026-06-15,Alta
+8,Corrigir bugs,Corrigir bugs reportados,1,Em Progresso,2026-06-01,2026-06-10,Média

@@ -5,9 +5,21 @@ const taskSchema = new mongoose.Schema({
   titulo: { type: String, required: true, trim: true },
   descricao: { type: String, trim: true },
   categoria: { type: String, trim: true },
-  status: { type: String, trim: true },
+  status: { type: String, 
+    enum: [
+    "pendente",
+    "andamento",
+    "concluida",
+  ],
+  default: "pendente",
+  trim: true },
   prioridade: { type: String, trim: true },
   responsavel: { type: String, trim: true },
+  user: {
+  type:
+    mongoose.Schema.Types.ObjectId,
+  ref: "User"
+  },
   papel_responsavel: { type: String, trim: true },
   publico_alvo: { type: String, trim: true },
   estimativa_horas: { type: Number },

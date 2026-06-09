@@ -3,9 +3,10 @@ const jwt = require("jsonwebtoken");
 const dbStore = require("../db/store");
 
 const gerarToken = (userId, isAdmin = false) => {
+  const secret = process.env.JWT_SECRET || "default_secret_key";
   return jwt.sign(
     { userId, isAdmin },
-    process.env.JWT_SECRET,
+    secret,
     { expiresIn: "1h" }
   );
 };

@@ -41,18 +41,6 @@ exports.createTask = async (req, res) => {
   }
 };
 
-exports.updateTask = async (req, res) => {
-  try {
-    const task = await dbStore.updateTask(Number(req.params.id), req.body);
-    if (!task) {
-      return res.status(404).json({ error: "Tarefa não encontrada" });
-    }
-    res.json(task);
-  } catch (error) {
-    res.status(400).json({ error: "Erro ao atualizar tarefa" });
-  }
-};
-
 exports.deleteTask = async (req, res) => {
   try {
     const task = await dbStore.deleteTask(Number(req.params.id));

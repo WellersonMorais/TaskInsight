@@ -3,16 +3,12 @@ const path = require("path");
 const dbStore = require("./db/store");
 
 const CsvReader =
-  require("./seed/CsvReader");
+  require("./seed/csvReader");
 
 const SeedService =
   require("./seed/SeedService");
 
-const dataPath = path.join(
-  __dirname,
-  "..",
-  "data"
-);
+const dataPath = "/Users/wpms/Desktop/TaskInsight/dataAnalysis/data";
 
 async function bootstrap() {
   const csvReader =

@@ -8,7 +8,7 @@ const CsvReader =
 const SeedService =
   require("./seed/SeedService");
 
-const dataPath = "/Users/wpms/Desktop/TaskInsight/dataAnalysis/data";
+const dataPath = path.join(__dirname, "..", "dataAnalysis", "data");
 
 async function bootstrap() {
   const csvReader =

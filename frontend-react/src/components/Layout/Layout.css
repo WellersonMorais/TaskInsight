@@ -1,0 +1,14 @@
+/* src/components/Layout/Layout.css */
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Área de conteúdo principal à direita da sidebar */
+.layout__content {
+  flex: 1;
+  margin-left: 160px; /* Largura da sidebar */
+  padding: 32px 40px;
+  background-color: var(--color-bg);
+}

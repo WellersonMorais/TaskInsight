@@ -7,6 +7,7 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, ClipboardList, BarChart2, LogOut } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
+import logoAmarelo from '../../assets/logo-amarelo.svg';
 import './Sidebar.css';
 
 // Links de navegação definidos em um array para facilitar manutenção
@@ -29,17 +30,7 @@ function Sidebar() {
     <aside className="sidebar">
       {/* Logo PontoFocal */}
       <div className="sidebar__logo">
-        {/* Ícone SVG inline do logo para não precisar de arquivo externo */}
-        <svg className="sidebar__logo-icon" viewBox="0 0 36 36" fill="none">
-          <circle cx="18" cy="18" r="16" stroke="#f5c842" strokeWidth="2.5" />
-          <circle cx="18" cy="18" r="8" stroke="#ffffff" strokeWidth="2.5" />
-          <circle cx="18" cy="18" r="3" fill="#f5c842" />
-          <circle cx="6"  cy="18" r="3" fill="#f5c842" />
-          <circle cx="30" cy="18" r="3" fill="#f5c842" />
-        </svg>
-        <span className="sidebar__logo-text">
-          Ponto<span>Focal</span>
-        </span>
+        <img src={logoAmarelo} alt="PontoFocal Logo" className="sidebar__logo-img" />
       </div>
 
       {/* Links de navegação */}

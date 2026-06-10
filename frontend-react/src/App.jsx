@@ -12,6 +12,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import Layout from './components/Layout/Layout';
 
 // Importando as páginas
 import Home from './pages/Home/Home';
@@ -45,7 +46,9 @@ function App() {
             path="/dashboard"
             element={
               <ProtectedRoute>
-                <Dashboard />
+                <Layout>
+                  <Dashboard />
+                </Layout>
               </ProtectedRoute>
             }
           />
@@ -53,7 +56,9 @@ function App() {
             path="/tarefas"
             element={
               <ProtectedRoute>
-                <Tarefas />
+                <Layout>
+                  <Tarefas />
+                </Layout>
               </ProtectedRoute>
             }
           />
@@ -61,7 +66,9 @@ function App() {
             path="/metricas"
             element={
               <ProtectedRoute>
-                <Metricas />
+                <Layout>
+                  <Metricas />
+                </Layout>
               </ProtectedRoute>
             }
           />

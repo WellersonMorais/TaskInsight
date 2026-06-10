@@ -1,0 +1,60 @@
+/* src/components/Badge/Badge.css */
+
+/* Pílula base */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Bolinha de cor antes do texto */
+.badge::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: currentColor;
+  opacity: 0.8;
+  flex-shrink: 0;
+}
+
+/* ===================== */
+/* STATUS                */
+/* ===================== */
+.badge--pendente {
+  background-color: #fee2e2; /* Vermelho claro */
+  color: #dc2626;            /* Vermelho texto */
+}
+
+.badge--andamento {
+  background-color: #fef9c3; /* Amarelo claro */
+  color: #ca8a04;            /* Amarelo escuro texto */
+}
+
+.badge--concluida {
+  background-color: #dcfce7; /* Verde claro */
+  color: #16a34a;            /* Verde texto */
+}
+
+/* ===================== */
+/* PRIORIDADE            */
+/* ===================== */
+.badge--alta {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.badge--media {
+  background-color: #fef9c3;
+  color: #ca8a04;
+}
+
+.badge--baixa {
+  background-color: #dcfce7;
+  color: #16a34a;
+}

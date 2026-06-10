@@ -1,0 +1,9 @@
+id,atividade_id,status_anterior,status_novo,data_mudanca,responsavel_mudanca
+1,1,Pendente,Em Progresso,2026-05-05,1
+2,1,Em Progresso,Concluído,2026-05-15,1
+3,2,Pendente,Em Progresso,2026-05-20,2
+4,3,Pendente,Pendente,2026-06-01,1
+5,5,Pendente,Em Progresso,2026-05-20,1
+6,5,Em Progresso,Concluído,2026-06-05,1
+7,6,Pendente,Em Progresso,2026-06-02,3
+8,8,Pendente,Em Progresso,2026-06-01,1

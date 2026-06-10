@@ -91,13 +91,6 @@ exports.createTask = async (data) => {
   return normalizeTask(item);
 };
 
-exports.updateTask = async (id, data) => {
-  if (useMongo) {
-    return Task.findOneAndUpdate({ id }, data, { new: true });
-  }
-  const item = db.get("tasks").find({ id }).assign(data).write();
-  return normalizeTask(item);
-};
 
 exports.deleteTask = async (id) => {
   if (useMongo) {

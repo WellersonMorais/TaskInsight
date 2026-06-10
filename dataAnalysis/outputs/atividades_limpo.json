@@ -1,0 +1,82 @@
+[
+  {
+    "id":1,
+    "titulo":"Desenvolver login",
+    "descricao":"Implementar autenticação JWT",
+    "responsavel_id":1,
+    "status":"Concluído",
+    "data_criacao":"2026-05-01",
+    "data_vencimento":"2026-05-15",
+    "prioridade":"Alta"
+  },
+  {
+    "id":2,
+    "titulo":"Criar dashboard",
+    "descricao":"Design da interface principal",
+    "responsavel_id":2,
+    "status":"Em Progresso",
+    "data_criacao":"2026-05-10",
+    "data_vencimento":"2026-06-10",
+    "prioridade":"Alta"
+  },
+  {
+    "id":3,
+    "titulo":"Testes unitários",
+    "descricao":"Cobertura de testes do backend",
+    "responsavel_id":1,
+    "status":"Pendente",
+    "data_criacao":"2026-06-01",
+    "data_vencimento":"2026-06-20",
+    "prioridade":"Média"
+  },
+  {
+    "id":4,
+    "titulo":"Documentação API",
+    "descricao":"Documentar endpoints REST",
+    "responsavel_id":4,
+    "status":"Pendente",
+    "data_criacao":"2026-06-01",
+    "data_vencimento":"2026-06-15",
+    "prioridade":"Média"
+  },
+  {
+    "id":5,
+    "titulo":"Otimização BD",
+    "descricao":"Melhorar queries do MongoDB",
+    "responsavel_id":1,
+    "status":"Concluído",
+    "data_criacao":"2026-05-20",
+    "data_vencimento":"2026-06-05",
+    "prioridade":"Alta"
+  },
+  {
+    "id":6,
+    "titulo":"Review código",
+    "descricao":"Revisar pull requests",
+    "responsavel_id":3,
+    "status":"Em Progresso",
+    "data_criacao":"2026-06-02",
+    "data_vencimento":"2026-06-08",
+    "prioridade":"Alta"
+  },
+  {
+    "id":7,
+    "titulo":"Deploy produção",
+    "descricao":"Fazer deploy em produção",
+    "responsavel_id":3,
+    "status":"Pendente",
+    "data_criacao":"2026-06-10",
+    "data_vencimento":"2026-06-15",
+    "prioridade":"Alta"
+  },
+  {
+    "id":8,
+    "titulo":"Corrigir bugs",
+    "descricao":"Corrigir bugs reportados",
+    "responsavel_id":1,
+    "status":"Em Progresso",
+    "data_criacao":"2026-06-01",
+    "data_vencimento":"2026-06-10",
+    "prioridade":"Média"
+  }
+]

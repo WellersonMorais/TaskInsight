@@ -1,0 +1,90 @@
+/* ================================
+   PONTOFOCAL - ESTILOS GLOBAIS
+   Baseado no design do Figma
+   ================================ */
+
+/* Importa a fonte Inter do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* --- Variáveis de Design (Paleta do Figma) --- */
+:root {
+  /* Cores principais */
+  --color-primary: #0f3460;       /* Azul escuro (sidebar, botão Entrar) */
+  --color-primary-dark: #0a2444; /* Azul mais escuro (hover) */
+  --color-accent: #f5c842;        /* Amarelo/Dourado (destaques, botão Cadastre-se) */
+  --color-accent-dark: #d4a800;  /* Amarelo escuro (hover) */
+
+  /* Cores de Fundo */
+  --color-bg: #f5f6fa;            /* Cinza muito claro (fundo geral) */
+  --color-bg-card: #f0ede4;       /* Bege claro (cards do dashboard) */
+  --color-sidebar-bg: #0f3460;   /* Azul escuro (sidebar) */
+  --color-white: #ffffff;
+
+  /* Cores de Texto */
+  --color-text: #1a1a2e;          /* Quase preto */
+  --color-text-muted: #6b7280;    /* Cinza para subtítulos */
+  --color-text-light: #ffffff;
+
+  /* Cores de Status */
+  --color-status-pending: #ef4444;     /* Vermelho - Pendente */
+  --color-status-progress: #f59e0b;   /* Amarelo/Laranja - Em Andamento */
+  --color-status-done: #10b981;       /* Verde - Concluída */
+
+  /* Cores de Prioridade */
+  --color-priority-high: #fca5a5;    /* Vermelho claro */
+  --color-priority-medium: #fde68a;  /* Amarelo claro */
+  --color-priority-low: #a7f3d0;     /* Verde claro */
+
+  /* Bordas e Sombras */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --shadow-card: 0 4px 16px rgba(15, 52, 96, 0.08);
+  --shadow-hover: 0 8px 24px rgba(15, 52, 96, 0.14);
+
+  /* Tipografia */
+  --font-family: 'Inter', sans-serif;
+}
+
+/* --- Reset e Base --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: var(--font-family);
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+input, select, textarea {
+  font-family: var(--font-family);
+  outline: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}

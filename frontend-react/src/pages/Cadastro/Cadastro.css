@@ -1,0 +1,370 @@
+/* src/pages/Cadastro/Cadastro.css */
+
+/* ---- Página: mesmo fundo da tela de login ---- */
+.cadastro-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f6fa 0%, #e8eaf0 100%);
+  padding: 2rem 1rem;
+}
+
+/* ---- Card amarelo ---- */
+.cadastro-card {
+  background: #f5c842;
+  border-radius: 28px;
+  padding: 2.2rem 2.8rem 2rem;
+  width: 100%;
+  max-width: 440px;
+  position: relative;
+  box-shadow:
+    0 20px 60px rgba(245, 200, 66, 0.35),
+    0 8px 24px rgba(0, 0, 0, 0.12);
+  animation: cardEntrance 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ---- Botão voltar ---- */
+.cadastro-back-btn {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.6rem;
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.cadastro-back-btn:hover {
+  background: rgba(15, 52, 96, 0.1);
+  transform: translateX(-2px);
+}
+
+/* ---- Logo ---- */
+.cadastro-logo-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  margin-top: 0.4rem;
+}
+
+.cadastro-logo {
+  height: 56px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* ---- Tagline ---- */
+.cadastro-tagline {
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--color-primary);
+  font-weight: 500;
+  opacity: 0.85;
+  margin-bottom: 1.5rem;
+}
+
+/* ---- Formulário ---- */
+.cadastro-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.cadastro-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.cadastro-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+/* ---- Input wrapper (para ícone de senha) ---- */
+.cadastro-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cadastro-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  background: #ffffff;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  font-family: var(--font-family);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.cadastro-input:focus {
+  box-shadow: 0 0 0 3px rgba(15, 52, 96, 0.2), 0 2px 8px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+
+.cadastro-input--error {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+/* Campo senha com espaço para ícone */
+.cadastro-input-wrapper .cadastro-input {
+  padding-right: 3rem;
+}
+
+.cadastro-toggle-senha {
+  position: absolute;
+  right: 0.9rem;
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  opacity: 0.6;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  transition: opacity 0.2s;
+}
+
+.cadastro-toggle-senha:hover {
+  opacity: 1;
+}
+
+/* ---- Erros por campo ---- */
+.cadastro-field-error {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #c0392b;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  animation: slideDown 0.2s ease;
+}
+
+.cadastro-field-error::before {
+  content: '⚠';
+  font-size: 0.75rem;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Força da senha ---- */
+.cadastro-senha-forca {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: -0.2rem;
+}
+
+.cadastro-forca-barra {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+}
+
+.cadastro-forca-segmento {
+  height: 4px;
+  flex: 1;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.5);
+  transition: background 0.3s ease;
+}
+
+.cadastro-forca-segmento.forca-fraca   { background: #ef4444; }
+.cadastro-forca-segmento.forca-media   { background: #f97316; }
+.cadastro-forca-segmento.forca-boa     { background: #eab308; }
+.cadastro-forca-segmento.forca-forte   { background: #22c55e; }
+
+.cadastro-forca-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  min-width: 36px;
+  text-align: right;
+}
+
+/* ---- Erro geral da API ---- */
+.cadastro-error {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #c0392b;
+  font-size: 0.87rem;
+  font-weight: 500;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  text-align: center;
+  animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-6px); }
+  40%       { transform: translateX(6px); }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px); }
+}
+
+/* ---- Botão Criar conta ---- */
+.cadastro-submit-btn {
+  margin-top: 0.3rem;
+  width: 100%;
+  padding: 1rem;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.15s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 16px rgba(15, 52, 96, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+}
+
+.cadastro-submit-btn:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(15, 52, 96, 0.45);
+}
+
+.cadastro-submit-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.cadastro-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Spinner de loading */
+.cadastro-spinner {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  border: 3px solid rgba(255,255,255,0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---- Link de login ---- */
+.cadastro-login-text {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--color-primary);
+  font-weight: 500;
+  margin-top: 0.9rem;
+}
+
+.cadastro-login-link {
+  font-weight: 800;
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.cadastro-login-link:hover {
+  opacity: 0.7;
+  text-decoration: underline;
+}
+
+/* ---- Divisor social ---- */
+.cadastro-social-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.9rem 0 0.8rem;
+}
+
+.cadastro-social-divider span:first-child,
+.cadastro-social-divider span:last-child {
+  flex: 1;
+  height: 1px;
+  background: rgba(15, 52, 96, 0.2);
+}
+
+.cadastro-social-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  opacity: 0.65;
+  white-space: nowrap;
+  flex: 0;
+}
+
+/* ---- Ícones sociais ---- */
+.cadastro-social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.cadastro-social-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  color: #1a1a2e;
+}
+
+.cadastro-social-btn:hover {
+  transform: translateY(-3px) scale(1.06);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.cadastro-social-btn:active {
+  transform: translateY(0) scale(1);
+}
+
+/* ---- Responsividade ---- */
+@media (max-width: 480px) {
+  .cadastro-card {
+    padding: 2rem 1.6rem 1.8rem;
+    border-radius: 20px;
+  }
+
+  .cadastro-logo {
+    height: 46px;
+  }
+}

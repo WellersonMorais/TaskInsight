@@ -1,0 +1,240 @@
+/* src/pages/Home/Home.css */
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--color-white); /* Fundo branco conforme o mockup */
+  overflow-x: hidden;
+}
+
+/* --- Header Institucional --- */
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 6%; /* Diminuído o espaçamento lateral para a logo não ficar tão isolada */
+  background-color: var(--color-white);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+
+.home-logo-link {
+  display: block;
+  width: 220px;
+  height: 68px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.home-logo-link:hover {
+  transform: scale(1.04);
+}
+
+.home-logo {
+  position: absolute;
+  width: 245px; /* Ligeiramente maior para aparecer melhor */
+  height: auto;
+  top: -38px;   /* Desceu um pouco (era -48px) para mostrar mais da logo */
+  left: -10px;  /* Ajuste horizontal para não cortar o ícone na esquerda */
+}
+
+.home-header-right {
+  display: flex;
+  align-items: center;
+  gap: 3.5rem; /* Agrupa o menu e o botão de login mais à direita e próximos */
+}
+
+.home-nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem; /* Links um pouco mais compactos entre si */
+}
+
+.home-nav-link {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-primary); /* Azul escuro institucional */
+  position: relative;
+  padding: 0.5rem 0;
+  transition: color 0.2s ease;
+}
+
+.home-nav-link:hover {
+  color: var(--color-primary-dark);
+}
+
+/* Efeito da linha sob os links ao passar o mouse */
+.home-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-accent); /* Linha amarela de destaque */
+  transition: width 0.3s ease;
+}
+
+.home-nav-link:hover::after {
+  width: 100%;
+}
+
+.home-header-actions {
+  display: flex;
+  align-items: center;
+}
+
+/* --- Hero Section --- */
+.home-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4rem 8%;
+  gap: 3rem;
+  flex-grow: 1;
+}
+
+.hero-content {
+  flex: 1;
+  max-width: 550px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.hero-title {
+  font-size: 2.6rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-primary); /* Cor primária */
+  margin-bottom: 1.5rem;
+}
+
+/* Palavras em negrito e destaque */
+.hero-title strong {
+  font-weight: 800;
+  color: var(--color-primary-dark);
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: var(--color-primary); /* Conforme o mockup, em tom de azul */
+  font-weight: 500;
+  margin-bottom: 2.5rem;
+  opacity: 0.9;
+}
+
+.hero-image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeInRight 0.8s ease-out;
+}
+
+.hero-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Efeito de flutuação e interatividade na ilustração */
+.hero-image:hover {
+  transform: scale(1.03) translateY(-5px);
+}
+
+/* --- Keyframes para animações --- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* --- Responsividade --- */
+@media (max-width: 992px) {
+  .home-header {
+    padding: 1.2rem 5%;
+  }
+
+  .home-header-right {
+    gap: 2rem;
+  }
+
+  .home-nav {
+    gap: 1.5rem;
+  }
+
+  .home-hero {
+    flex-direction: column;
+    padding: 3rem 5%;
+    text-align: center;
+    gap: 3rem;
+  }
+
+  .hero-content {
+    align-items: center;
+    max-width: 100%;
+  }
+
+  .hero-title {
+    font-size: 2.2rem;
+  }
+
+  .hero-image-container {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-header {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .home-header-right {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .home-nav {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+  }
+
+  .home-header-actions {
+    width: 100%;
+    justify-content: center;
+    margin-top: 0.2rem;
+  }
+
+  .hero-title {
+    font-size: 1.8rem;
+  }
+}

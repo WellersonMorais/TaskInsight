@@ -1,0 +1,41 @@
+/* src/components/Input/Input.css */
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.input-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-primary); /* Azul escuro como no Figma de login */
+}
+
+.input-group input {
+  width: 100%;
+  padding: 13px 16px;
+  border: none;
+  border-radius: 50px; /* Totalmente arredondado — igual ao Figma */
+  background-color: #ffffff;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  transition: box-shadow 0.2s;
+}
+
+.input-group input:focus {
+  box-shadow: 0 0 0 3px rgba(15, 52, 96, 0.2);
+  outline: none;
+}
+
+.input-group input::placeholder {
+  color: #9ca3af;
+}
+
+/* Variante para filtros (fundo bege) */
+.input-group--filter input {
+  background-color: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  border: 1px solid #e2dcc8;
+}

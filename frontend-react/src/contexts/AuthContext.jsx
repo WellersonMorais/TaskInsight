@@ -1,4 +1,6 @@
 // src/contexts/AuthContext.jsx
+/* eslint-disable react-refresh/only-export-components */
+/* eslint-disable react-hooks/set-state-in-effect */
 // 
 // O Context é como uma "caixa de informações global" do React.
 // Qualquer componente filho pode ler ou alterar o estado de autenticação
@@ -16,10 +18,19 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem(TOKEN_KEY));
   const [user, setUser] = useState(null);
 
+  // Remove tudo e limpa os estados
+  const logout = () => {
+    localStorage.removeItem(TOKEN_KEY);
+    setToken(null);
+    setUser(null);
+  };
+
   // Sempre que o token muda, tenta carregar os dados do usuário logado
   useEffect(() => {
     if (!token) {
-      setUser(null);
+      if (user !== null) {
+        setUser(null);
+      }
       return;
     }
     // Chama a API para buscar os dados do usuário atual
@@ -35,19 +46,12 @@ export function AuthProvider({ children }) {
         // Se o token for inválido, faz logout
         logout();
       });
-  }, [token]);
+  }, [token, user]);
 
   // Salva o token no localStorage e no estado
   const login = (newToken) => {
     localStorage.setItem(TOKEN_KEY, newToken);
     setToken(newToken);
-  };
-
-  // Remove tudo
-  const logout = () => {
-    localStorage.removeItem(TOKEN_KEY);
-    setToken(null);
-    setUser(null);
   };
 
   // O valor que todos os componentes filhos poderão acessar

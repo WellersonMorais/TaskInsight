@@ -1,0 +1,58 @@
+/* src/components/SummaryCard/SummaryCard.css */
+
+.summary-card {
+  background-color: var(--color-accent); /* Amarelo dourado como no Figma */
+  border-radius: var(--radius-lg);
+  padding: 20px 22px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 0;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Ícone à esquerda */
+.summary-card__icon {
+  width: 40px;
+  height: 40px;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+/* Conteúdo textual */
+.summary-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+/* Número grande (ex: "66", "21d") */
+.summary-card__value {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+/* Label (ex: "Total de tarefas") */
+.summary-card__label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+/* Subtexto (ex: "no sistema.") */
+.summary-card__sublabel {
+  font-size: 0.72rem;
+  color: rgba(15, 52, 96, 0.65);
+  margin: 0;
+}

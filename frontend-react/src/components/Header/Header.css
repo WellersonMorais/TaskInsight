@@ -1,0 +1,69 @@
+/* src/components/Header/Header.css */
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+/* Lado esquerdo: título e subtítulo */
+.header__left h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--color-text);
+  margin: 0 0 4px 0;
+  line-height: 1.2;
+}
+
+.header__left p {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* Lado direito: avatar + nome + cargo */
+.header__user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: var(--color-accent);
+  /* Fallback quando não há imagem */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--color-primary);
+  overflow: hidden;
+}
+
+.header__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.header__user-info {
+  text-align: right;
+}
+
+.header__user-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.header__user-role {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}

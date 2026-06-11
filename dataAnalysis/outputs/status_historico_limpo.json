@@ -4,7 +4,7 @@
     "atividade_id":1,
     "status_anterior":"Pendente",
     "status_novo":"Em Progresso",
-    "data_mudanca":"2026-05-05",
+    "data_mudanca":1777939200000,
     "responsavel_mudanca":1
   },
   {
@@ -12,7 +12,7 @@
     "atividade_id":1,
     "status_anterior":"Em Progresso",
     "status_novo":"Concluído",
-    "data_mudanca":"2026-05-15",
+    "data_mudanca":1778803200000,
     "responsavel_mudanca":1
   },
   {
@@ -20,7 +20,7 @@
     "atividade_id":2,
     "status_anterior":"Pendente",
     "status_novo":"Em Progresso",
-    "data_mudanca":"2026-05-20",
+    "data_mudanca":1779235200000,
     "responsavel_mudanca":2
   },
   {
@@ -28,7 +28,7 @@
     "atividade_id":3,
     "status_anterior":"Pendente",
     "status_novo":"Pendente",
-    "data_mudanca":"2026-06-01",
+    "data_mudanca":1780272000000,
     "responsavel_mudanca":1
   },
   {
@@ -36,7 +36,7 @@
     "atividade_id":5,
     "status_anterior":"Pendente",
     "status_novo":"Em Progresso",
-    "data_mudanca":"2026-05-20",
+    "data_mudanca":1779235200000,
     "responsavel_mudanca":1
   },
   {
@@ -44,7 +44,7 @@
     "atividade_id":5,
     "status_anterior":"Em Progresso",
     "status_novo":"Concluído",
-    "data_mudanca":"2026-06-05",
+    "data_mudanca":1780617600000,
     "responsavel_mudanca":1
   },
   {
@@ -52,7 +52,7 @@
     "atividade_id":6,
     "status_anterior":"Pendente",
     "status_novo":"Em Progresso",
-    "data_mudanca":"2026-06-02",
+    "data_mudanca":1780358400000,
     "responsavel_mudanca":3
   },
   {
@@ -60,7 +60,7 @@
     "atividade_id":8,
     "status_anterior":"Pendente",
     "status_novo":"Em Progresso",
-    "data_mudanca":"2026-06-01",
+    "data_mudanca":1780272000000,
     "responsavel_mudanca":1
   }
 ]

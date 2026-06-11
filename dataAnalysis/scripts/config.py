@@ -1,5 +1,5 @@
 import os
-import sys
+from pathlib import Path
 from dotenv import load_dotenv
 
 # Carregar variáveis de ambiente
@@ -16,9 +16,9 @@ class Config:
     MONGODB_URI = os.getenv('MONGODB_URI', 'mongodb://localhost:27017/taskinsight')
     
     # Caminhos
-    PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    DATA_PATH = os.path.join(PROJECT_ROOT, 'dataAnalysis', 'data')
-    OUTPUT_PATH = os.path.join(PROJECT_ROOT, 'dataAnalysis', 'outputs')
+    PROJECT_ROOT = Path(__file__).resolve().parent.parent
+    DATA_PATH = str(PROJECT_ROOT / 'data')
+    OUTPUT_PATH = str(PROJECT_ROOT / 'outputs')
     
     # Configurações de debug
     DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'

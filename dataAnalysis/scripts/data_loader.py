@@ -1,9 +1,13 @@
-import pandas as pd
-import requests
-import json
 import os
 from datetime import datetime
-from config import Config
+
+import pandas as pd
+import requests
+
+try:
+    from .config import Config
+except ImportError:
+    from config import Config
 
 class DataLoader:
     """Carrega dados do backend e arquivos CSV"""

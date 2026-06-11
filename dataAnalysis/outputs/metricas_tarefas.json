@@ -1,0 +1,65 @@
+{
+  "resumo": {
+    "quantidade_tarefas": 8,
+    "tarefas_concluidas": 2,
+    "tarefas_pendentes": 3,
+    "tarefas_em_andamento": 3,
+    "taxa_conclusao": 25.0,
+    "taxa_pendencia": 37.5,
+    "tempo_medio_conclusao_dias": 15.0,
+    "tarefas_atrasadas": 3
+  },
+  "padrões": {
+    "status_distribution": {
+      "Em Progresso": 3,
+      "Pendente": 3,
+      "Concluído": 2
+    },
+    "prioridade_distribution": {
+      "Alta": 5,
+      "Média": 3
+    },
+    "responsaveis": {
+      "1": 4,
+      "3": 2,
+      "2": 1,
+      "4": 1
+    }
+  },
+  "visualizacao": {
+    "cards": [
+      {
+        "key": "quantidade_tarefas",
+        "label": "Tarefas cadastradas",
+        "value": 8
+      },
+      {
+        "key": "tarefas_concluidas",
+        "label": "Tarefas concluídas",
+        "value": 2
+      },
+      {
+        "key": "tarefas_pendentes",
+        "label": "Tarefas pendentes",
+        "value": 3
+      }
+    ],
+    "chart_data": {
+      "labels": [
+        "Concluídas",
+        "Pendentes",
+        "Em andamento"
+      ],
+      "series": [
+        {
+          "name": "Quantidade",
+          "data": [
+            2,
+            3,
+            3
+          ]
+        }
+      ]
+    }
+  }
+}

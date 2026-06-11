@@ -9,6 +9,8 @@ Módulo responsável pela análise, limpeza e validação dos dados do projeto T
 - ✅ Criar DataFrames para análise
 - ✅ Realizar limpeza básica dos dados
 - ✅ Validar consistência das informações
+- ✅ Calcular métricas iniciais de produtividade
+- ✅ Organizar métricas para futura visualização
 
 ## 📁 Estrutura
 
@@ -142,9 +144,23 @@ Após executar a análise, você encontrará em `outputs/`:
 - `atividades_limpo.csv` - Dados limpos
 - `atividades_limpo.json` - Dados em JSON
 - `relatorio_qualidade.json` - Relatório de qualidade
+- `metricas_tarefas.json` - Métricas iniciais de produtividade para dashboard
 - `relatorio_analise_completo.json` - Análise completa
 
-## 📝 Exemplo de Uso Completo
+## � Métricas de Produtividade
+
+A análise agora gera um resumo estruturado com:
+
+- Quantidade total de tarefas cadastradas
+- Tarefas concluídas e pendentes
+- Tarefas em andamento
+- Taxa de conclusão e pendência
+- Padrões simples por status, prioridade e responsável
+- Indicador de tarefas atrasadas
+
+O arquivo [outputs/metricas_tarefas.json](outputs/metricas_tarefas.json) pode ser usado diretamente como fonte para gráficos ou cards de dashboard.
+
+## �📝 Exemplo de Uso Completo
 
 ```python
 import pandas as pd

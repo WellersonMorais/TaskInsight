@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { secret: jwtSecret } = require("../config/jwt");
 
 module.exports = (req, res, next) => {
   const token = req.headers["x-auth-token"] || req.headers.authorization;
@@ -7,8 +8,7 @@ module.exports = (req, res, next) => {
   }
 
   try {
-    const secret = process.env.JWT_SECRET || "secret123";
-    const payload = jwt.verify(token.replace("Bearer ", ""), secret);
+    const payload = jwt.verify(token.replace("Bearer ", ""), jwtSecret);
     req.userId = payload.userId;
     req.isAdmin = payload.isAdmin || false;
     next();

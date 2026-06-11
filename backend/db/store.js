@@ -9,7 +9,51 @@ const StatusHistory = require("../models/StatusHistory");
 const User = require("../models/User");
 
 const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/taskinsight";
-const localDbPath = path.join(__dirname, "..", "local-db.json");
+const rootDbPath = path.join(__dirname, "..", "..", "local-db.json");
+const backendDbPath = path.join(__dirname, "..", "local-db.json");
+
+const readDbFile = (filePath) => {
+  try {
+    return JSON.parse(fs.readFileSync(filePath, "utf-8"));
+  } catch (_) {
+    return null;
+  }
+};
+
+const resolveLocalDbPath = () => {
+  if (process.env.LOCAL_DB_PATH) {
+    return process.env.LOCAL_DB_PATH;
+  }
+
+  const rootContent = fs.existsSync(rootDbPath) ? readDbFile(rootDbPath) : null;
+  const backendContent = fs.existsSync(backendDbPath) ? readDbFile(backendDbPath) : null;
+
+  const rootTaskCount = Array.isArray(rootContent?.tasks) ? rootContent.tasks.length : 0;
+  const backendTaskCount = Array.isArray(backendContent?.tasks) ? backendContent.tasks.length : 0;
+  const rootHasAdmin = Array.isArray(rootContent?.users)
+    && rootContent.users.some((user) => user.email === "admin@taskinsight.com");
+
+  // Prioriza o dataset completo na raiz (tasks + admin do seed)
+  if (rootTaskCount > 0 && rootHasAdmin) {
+    return rootDbPath;
+  }
+
+  if (backendTaskCount > rootTaskCount) {
+    return backendDbPath;
+  }
+
+  if (rootTaskCount > 0) {
+    return rootDbPath;
+  }
+
+  if (fs.existsSync(backendDbPath)) {
+    return backendDbPath;
+  }
+
+  return rootDbPath;
+};
+
+const localDbPath = resolveLocalDbPath();
 let db = null;
 let useMongo = false;
 
@@ -27,12 +71,13 @@ const connect = async () => {
     await mongoose.connect(MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 3000,
     });
     useMongo = true;
     console.log("MongoDB conectado");
   } catch (error) {
     console.error("Falha MongoDB:", error.message);
-    console.log("Usando banco local em backend/local-db.json");
+    console.log("Usando banco local em", localDbPath);
     initLocalDb();
   }
 };
@@ -82,15 +127,47 @@ exports.getTask = async (id) => {
 };
 
 exports.createTask = async (data) => {
+  const payload = {
+    ...data,
+    data_criacao: data.data_criacao || new Date(),
+  };
+
   if (useMongo) {
-    const task = new Task(data);
+    const maxTask = await Task.findOne().sort({ id: -1 });
+    const nextId = maxTask ? maxTask.id + 1 : 1;
+    const task = new Task({ ...payload, id: nextId });
     return task.save();
   }
-  const item = { ...data, id: data.id || getNextId() };
+
+  const item = { ...payload, id: payload.id || getNextId("tasks") };
   db.get("tasks").push(item).write();
   return normalizeTask(item);
 };
 
+exports.updateTask = async (id, data) => {
+  if (useMongo) {
+    const existing = await Task.findOne({ id });
+    if (!existing) return null;
+
+    const updates = { ...data };
+    if (updates.status === "concluida" && !existing.data_conclusao) {
+      updates.data_conclusao = new Date();
+    }
+
+    return Task.findOneAndUpdate({ id }, updates, { new: true });
+  }
+
+  const task = db.get("tasks").find({ id }).value();
+  if (!task) return null;
+
+  const updates = { ...data };
+  if (updates.status === "concluida" && !task.data_conclusao) {
+    updates.data_conclusao = new Date().toISOString();
+  }
+
+  db.get("tasks").find({ id }).assign(updates).write();
+  return normalizeTask(db.get("tasks").find({ id }).value());
+};
 
 exports.deleteTask = async (id) => {
   if (useMongo) {
@@ -132,7 +209,19 @@ exports.getUserById = async (id) => {
   if (useMongo) {
     return User.findById(id);
   }
-  return db.get("users").find({ id }).value();
+  return db.get("users").find((user) => String(user.id) === String(id)).value();
+};
+
+exports.updateUser = async (id, data) => {
+  if (useMongo) {
+    return User.findByIdAndUpdate(id, data, { new: true });
+  }
+
+  const user = db.get("users").find((item) => String(item.id) === String(id)).value();
+  if (!user) return null;
+
+  db.get("users").find({ id: user.id }).assign(data).write();
+  return db.get("users").find({ id: user.id }).value();
 };
 
 exports.createUser = async (data) => {

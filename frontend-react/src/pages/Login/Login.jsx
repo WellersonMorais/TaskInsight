@@ -23,8 +23,8 @@ function Login() {
     setLoading(true);
     try {
       const data = await authLogin(email, senha);
-      login(data.token);
-      navigate('/dashboard');
+      login(data.token, data.user);
+      navigate(data.user?.isAdmin ? '/tarefas' : '/dashboard');
     } catch (err) {
       setErro(err.message || 'Credenciais inválidas. Tente novamente.');
     } finally {

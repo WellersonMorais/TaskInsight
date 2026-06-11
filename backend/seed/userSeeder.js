@@ -14,7 +14,8 @@ class UserSeeder {
     await this.userRepository.createUser({
       name: "Admin TaskInsight",
       email: "admin@taskinsight.com",
-      password
+      password,
+      isAdmin: true,
     });
   }
 }

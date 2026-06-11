@@ -6,9 +6,9 @@ exports.getSummary = async (req, res) => {
     
     // Se não é admin, filtrar apenas as tasks do usuário
     if (!req.isAdmin && req.userId) {
-      tasks = tasks.filter(task => task.user_id === req.userId);
+      tasks = tasks.filter((task) => String(task.user_id) === String(req.userId));
     }
-    
+
     const resumo = {
       total: tasks.length,
       status: {},
@@ -52,9 +52,9 @@ exports.getAnalytics = async (req, res) => {
     
     // Se não é admin, filtrar apenas as tasks do usuário
     if (!req.isAdmin && req.userId) {
-      tasks = tasks.filter(task => task.user_id === req.userId);
+      tasks = tasks.filter((task) => String(task.user_id) === String(req.userId));
     }
-    
+
     const resumo = {
       finishRateByCategory: {},
       avgLeadTimeDays: 0,

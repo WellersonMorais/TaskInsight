@@ -8,6 +8,7 @@
 
 import { useEffect, useState } from 'react';
 import { getSummary, getAnalytics } from '../../services/api';
+import { useAuth } from '../../contexts/AuthContext';
 import Header from '../../components/Header/Header';
 import SummaryCard from '../../components/SummaryCard/SummaryCard';
 import { FileText, CheckCircle, Users, Clock } from 'lucide-react';
@@ -34,6 +35,7 @@ ChartJS.register(
 );
 
 function Dashboard() {
+  const { user } = useAuth();
   const [summary, setSummary] = useState(null);
   const [analytics, setAnalytics] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -77,7 +79,7 @@ function Dashboard() {
   const statusLabels = ['Concluídas', 'Em andamento', 'Pendentes'];
   const statusData = [
     summary?.status?.concluida || 0,
-    summary?.status?.em_andamento || 0,
+    summary?.status?.andamento || 0,
     summary?.status?.pendente || 0,
   ];
   const statusColors = ['#10b981', '#f59e0b', '#ef4444'];
@@ -181,10 +183,12 @@ function Dashboard() {
 
   const topOwnerCount = topOwner !== 'N/A' ? tasksByOwner[topOwner] : 0;
 
+  const greetingName = user?.name?.split(' ')[0] || 'usuário';
+
   return (
     <div className="dashboard">
       <Header
-        title="Olá, admin!"
+        title={`Olá, ${greetingName}!`}
         subtitle="Bem-vindo(a) de volta ao PontoFocal."
       />
 

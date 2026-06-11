@@ -1044,7 +1044,7 @@
     {
       "titulo": "Apresentar projeto Inova.Ação PCD",
       "descricao": "Desenvolver apresentação para finalização do curso fullstack para PCDs.",
-      "status": "pendente",
+      "status": "concluida",
       "publico_alvo": "Geral",
       "categoria": "Acessibilidade Digital",
       "responsavel": "Bruno Costa",
@@ -1052,7 +1052,8 @@
       "estimativa_horas": 10,
       "user_id": 4,
       "data_criacao": "2026-06-11T03:20:59.602Z",
-      "id": 66
+      "id": 66,
+      "data_conclusao": "2026-06-11T04:03:08.935Z"
     }
   ],
   "responsaveis": [

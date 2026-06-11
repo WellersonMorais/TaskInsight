@@ -99,3 +99,6 @@ export const getSummary = () =>
 
 export const getAnalytics = () =>
   request('/api/data/analytics', { headers: getHeaders() });
+
+export const getResponsaveis = () =>
+  request('/api/data/responsaveis', { headers: getHeaders() });

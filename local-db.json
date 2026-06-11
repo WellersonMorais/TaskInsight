@@ -1040,6 +1040,20 @@
       "estimativa_horas": 10,
       "user_id": 2,
       "id": 1
+    },
+    {
+      "titulo": "Apresentar projeto Inova.Ação PCD",
+      "descricao": "Desenvolver apresentação para finalização do curso fullstack para PCDs.",
+      "status": "concluida",
+      "publico_alvo": "Geral",
+      "categoria": "Acessibilidade Digital",
+      "responsavel": "Bruno Costa",
+      "prioridade": "alta",
+      "estimativa_horas": 10,
+      "user_id": 4,
+      "data_criacao": "2026-06-11T03:20:59.602Z",
+      "id": 66,
+      "data_conclusao": "2026-06-11T04:03:08.935Z"
     }
   ],
   "responsaveis": [
@@ -1933,7 +1947,7 @@
   "users": [
     {
       "name": "Admin TaskInsight",
-      "email": "admininsight.com",
+      "email": "admin@taskinsight.com",
       "password": "$2a$10$C/6sP6veozlFz5z5iSvnXulAqqAY6Ti3XQKp4HwoIeFIGsoWenacK",
       "isAdmin": true,
       "id": 1
@@ -1944,6 +1958,20 @@
       "password": "$2a$10$WtcHXmENM7M7vevaIuJ4vei5q4pU.44dHyj3IixS6611TK6fOPgCe",
       "isAdmin": false,
       "id": 2
+    },
+    {
+      "name": "User Test",
+      "email": "usertest@x.com",
+      "password": "$2a$10$3sU9.E/oNifgt9FLcp03buJk/rf.KZ320eMAPfVcnhHPt8BAbslPG",
+      "isAdmin": false,
+      "id": 3
+    },
+    {
+      "name": "YASMIN LOPES",
+      "email": "lopesyas2007@gmail.com",
+      "password": "$2a$10$SJtAgpC5/p8REb2HLtPVt.NC1r.a9Ae77N55M2OemdM0Azzrjbl4C",
+      "isAdmin": false,
+      "id": 4
     }
   ]
 }

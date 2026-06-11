@@ -1,12 +1,12 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const dbStore = require("../db/store");
+const { secret: jwtSecret } = require("../config/jwt");
 
 const gerarToken = (userId, isAdmin = false) => {
-  const secret = process.env.JWT_SECRET || "default_secret_key";
   return jwt.sign(
     { userId, isAdmin },
-    secret,
+    jwtSecret,
     { expiresIn: "1h" }
   );
 };
@@ -38,8 +38,16 @@ exports.register = async (req, res) => {
       isAdmin: false,
     });
 
+    const userId = user.id || user._id;
+
     res.json({
-      token: gerarToken(user.id || user._id, false),
+      token: gerarToken(userId, false),
+      user: {
+        id: userId,
+        name: user.name,
+        email: user.email,
+        isAdmin: false,
+      },
     });
   } catch (error) {
     res.status(500).json({
@@ -78,12 +86,16 @@ exports.login = async (req, res) => {
     }
 
     const isAdmin = Boolean(user.isAdmin);
+    const userId = user.id || user._id;
 
     res.json({
-      token: gerarToken(
-        user.id || user._id,
-        isAdmin
-      ),
+      token: gerarToken(userId, isAdmin),
+      user: {
+        id: userId,
+        name: user.name,
+        email: user.email,
+        isAdmin,
+      },
     });
   } catch (error) {
     console.error("LOGIN ERROR", error);
@@ -108,7 +120,7 @@ exports.getCurrentUser = async (req, res) => {
       id: user.id || user._id,
       name: user.name,
       email: user.email,
-      isAdmin: req.isAdmin,
+      isAdmin: Boolean(user.isAdmin),
     });
   } catch (error) {
     res.status(500).json({

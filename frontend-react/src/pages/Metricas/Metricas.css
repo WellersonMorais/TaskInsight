@@ -1,0 +1,205 @@
+/* src/pages/Metricas/Metricas.css */
+
+/* ─── Contêiner raiz ────────────────────────────────────────────────────────── */
+.metricas {
+  width: 100%;
+}
+
+/* ─── Estados de feedback ───────────────────────────────────────────────────── */
+.metricas__message {
+  color: var(--color-text-muted, #6b7280);
+  font-size: 0.95rem;
+  margin-top: 24px;
+}
+
+.metricas__message--error {
+  color: #ef4444;
+}
+
+/* ─── Cards de resumo (topo) ─────────────────────────────────────────────────  */
+.metricas__resumo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.metricas__resumo-card {
+  background-color: var(--color-white, #fff);
+  border-radius: var(--radius-lg, 12px);
+  padding: 24px 20px;
+  box-shadow: var(--shadow-card, 0 2px 8px rgba(0, 0, 0, 0.06));
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.metricas__resumo-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-accent, #f5a623);
+  line-height: 1;
+}
+
+.metricas__resumo-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text, #1a2a4a);
+  margin: 4px 0 0;
+}
+
+.metricas__resumo-sub {
+  font-size: 0.8rem;
+  color: var(--color-text-muted, #6b7280);
+  margin: 0;
+}
+
+/* ─── Painéis principais (lado a lado) ───────────────────────────────────────  */
+.metricas__panels {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+/* ─── Card genérico dos painéis ──────────────────────────────────────────────  */
+.metricas__card {
+  background-color: var(--color-white, #fff);
+  border-radius: var(--radius-lg, 12px);
+  padding: 24px;
+  box-shadow: var(--shadow-card, 0 2px 8px rgba(0, 0, 0, 0.06));
+}
+
+.metricas__card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text, #1a2a4a);
+  margin: 0 0 20px 0;
+}
+
+.metricas__empty {
+  color: var(--color-text-muted, #6b7280);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+/* ─── Lista: taxa de conclusão por categoria ─────────────────────────────────  */
+.metricas__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.metricas__list-item {
+  display: grid;
+  grid-template-columns: 180px 1fr 52px;
+  align-items: center;
+  gap: 12px;
+}
+
+.metricas__list-label {
+  font-size: 0.85rem;
+  color: var(--color-text, #1a2a4a);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.metricas__list-value {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text, #1a2a4a);
+  text-align: right;
+}
+
+/* ─── Barra de progresso ─────────────────────────────────────────────────────  */
+.metricas__bar-wrapper {
+  flex: 1;
+}
+
+.metricas__bar-track {
+  width: 100%;
+  height: 8px;
+  background-color: #e9eff8;
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.metricas__bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.4s ease;
+}
+
+/* ─── Ranking de responsáveis ────────────────────────────────────────────────  */
+.metricas__ranking {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.metricas__ranking-item {
+  display: grid;
+  grid-template-columns: 28px 140px 1fr 36px;
+  align-items: center;
+  gap: 12px;
+}
+
+.metricas__ranking-position {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--color-accent, #f5a623);
+  color: var(--color-white, #fff);
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.metricas__ranking-name {
+  font-size: 0.85rem;
+  color: var(--color-text, #1a2a4a);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.metricas__ranking-count {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-text, #1a2a4a);
+  text-align: right;
+}
+
+/* ─── Responsividade ──────────────────────────────────────────────────────────  */
+@media (max-width: 1200px) {
+  .metricas__resumo-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .metricas__panels {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .metricas__resumo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .metricas__list-item {
+    grid-template-columns: 140px 1fr 48px;
+  }
+
+  .metricas__ranking-item {
+    grid-template-columns: 28px 110px 1fr 32px;
+  }
+}

@@ -1,5 +1,11 @@
 const dbStore = require("../db/store");
 
+const canAccessTask = (req, task) => {
+  if (req.isAdmin) return true;
+  if (!task || !req.userId) return false;
+  return String(task.user_id) === String(req.userId);
+};
+
 exports.getTasks = async (req, res) => {
   try {
     const filters = {};
@@ -24,6 +30,9 @@ exports.getTask = async (req, res) => {
     if (!task) {
       return res.status(404).json({ error: "Tarefa não encontrada" });
     }
+    if (!canAccessTask(req, task)) {
+      return res.status(403).json({ error: "Acesso negado" });
+    }
     res.json(task);
   } catch (error) {
     res.status(500).json({ error: "Erro ao buscar tarefa" });
@@ -41,12 +50,34 @@ exports.createTask = async (req, res) => {
   }
 };
 
-exports.deleteTask = async (req, res) => {
+exports.updateTask = async (req, res) => {
   try {
-    const task = await dbStore.deleteTask(Number(req.params.id));
-    if (!task || (Array.isArray(task) && task.length === 0)) {
+    const taskId = Number(req.params.id);
+    const existing = await dbStore.getTask(taskId);
+    if (!existing) {
       return res.status(404).json({ error: "Tarefa não encontrada" });
     }
+    if (!canAccessTask(req, existing)) {
+      return res.status(403).json({ error: "Acesso negado" });
+    }
+    const task = await dbStore.updateTask(taskId, req.body);
+    res.json(task);
+  } catch (error) {
+    res.status(400).json({ error: "Erro ao atualizar tarefa" });
+  }
+};
+
+exports.deleteTask = async (req, res) => {
+  try {
+    const taskId = Number(req.params.id);
+    const existing = await dbStore.getTask(taskId);
+    if (!existing) {
+      return res.status(404).json({ error: "Tarefa não encontrada" });
+    }
+    if (!canAccessTask(req, existing)) {
+      return res.status(403).json({ error: "Acesso negado" });
+    }
+    await dbStore.deleteTask(taskId);
     res.json({ message: "Tarefa removida" });
   } catch (error) {
     res.status(500).json({ error: "Erro ao remover tarefa" });

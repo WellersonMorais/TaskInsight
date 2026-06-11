@@ -17,6 +17,7 @@ const TOKEN_KEY = 'taskinsight_token';
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem(TOKEN_KEY));
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(() => Boolean(localStorage.getItem(TOKEN_KEY)));
 
   // Remove tudo e limpa os estados
   const logout = () => {
@@ -28,12 +29,12 @@ export function AuthProvider({ children }) {
   // Sempre que o token muda, tenta carregar os dados do usuário logado
   useEffect(() => {
     if (!token) {
-      if (user !== null) {
-        setUser(null);
-      }
+      setUser(null);
+      setLoading(false);
       return;
     }
-    // Chama a API para buscar os dados do usuário atual
+
+    setLoading(true);
     fetch('/api/auth/me', {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -43,22 +44,29 @@ export function AuthProvider({ children }) {
       })
       .then((data) => setUser(data))
       .catch(() => {
-        // Se o token for inválido, faz logout
         logout();
+      })
+      .finally(() => {
+        setLoading(false);
       });
-  }, [token, user]);
+  }, [token]);
 
   // Salva o token no localStorage e no estado
-  const login = (newToken) => {
+  const login = (newToken, userData = null) => {
     localStorage.setItem(TOKEN_KEY, newToken);
     setToken(newToken);
+    if (userData) {
+      setUser(userData);
+    }
   };
 
   // O valor que todos os componentes filhos poderão acessar
   const value = {
     token,
     user,
+    isAdmin: Boolean(user?.isAdmin),
     isAuthenticated: !!token,
+    loading,
     login,
     logout,
   };

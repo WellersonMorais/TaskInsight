@@ -20,6 +20,13 @@ class SeedService {
 
   async execute() {
     await this.dbStore.connect();
+
+    const existing = await this.dbStore.getTasks();
+    if (existing.length > 0) {
+      console.log("Banco já populado, seed ignorado.");
+      return;
+    }
+
     await this.dbStore.clearAll();
 
     const [

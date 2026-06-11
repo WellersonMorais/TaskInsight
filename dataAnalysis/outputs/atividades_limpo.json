@@ -5,8 +5,8 @@
     "descricao":"Implementar autenticação JWT",
     "responsavel_id":1,
     "status":"Concluído",
-    "data_criacao":"2026-05-01",
-    "data_vencimento":"2026-05-15",
+    "data_criacao":1777593600000,
+    "data_vencimento":1778803200000,
     "prioridade":"Alta"
   },
   {
@@ -15,8 +15,8 @@
     "descricao":"Design da interface principal",
     "responsavel_id":2,
     "status":"Em Progresso",
-    "data_criacao":"2026-05-10",
-    "data_vencimento":"2026-06-10",
+    "data_criacao":1778371200000,
+    "data_vencimento":1781049600000,
     "prioridade":"Alta"
   },
   {
@@ -25,8 +25,8 @@
     "descricao":"Cobertura de testes do backend",
     "responsavel_id":1,
     "status":"Pendente",
-    "data_criacao":"2026-06-01",
-    "data_vencimento":"2026-06-20",
+    "data_criacao":1780272000000,
+    "data_vencimento":1781913600000,
     "prioridade":"Média"
   },
   {
@@ -35,8 +35,8 @@
     "descricao":"Documentar endpoints REST",
     "responsavel_id":4,
     "status":"Pendente",
-    "data_criacao":"2026-06-01",
-    "data_vencimento":"2026-06-15",
+    "data_criacao":1780272000000,
+    "data_vencimento":1781481600000,
     "prioridade":"Média"
   },
   {
@@ -45,8 +45,8 @@
     "descricao":"Melhorar queries do MongoDB",
     "responsavel_id":1,
     "status":"Concluído",
-    "data_criacao":"2026-05-20",
-    "data_vencimento":"2026-06-05",
+    "data_criacao":1779235200000,
+    "data_vencimento":1780617600000,
     "prioridade":"Alta"
   },
   {
@@ -55,8 +55,8 @@
     "descricao":"Revisar pull requests",
     "responsavel_id":3,
     "status":"Em Progresso",
-    "data_criacao":"2026-06-02",
-    "data_vencimento":"2026-06-08",
+    "data_criacao":1780358400000,
+    "data_vencimento":1780876800000,
     "prioridade":"Alta"
   },
   {
@@ -65,8 +65,8 @@
     "descricao":"Fazer deploy em produção",
     "responsavel_id":3,
     "status":"Pendente",
-    "data_criacao":"2026-06-10",
-    "data_vencimento":"2026-06-15",
+    "data_criacao":1781049600000,
+    "data_vencimento":1781481600000,
     "prioridade":"Alta"
   },
   {
@@ -75,8 +75,8 @@
     "descricao":"Corrigir bugs reportados",
     "responsavel_id":1,
     "status":"Em Progresso",
-    "data_criacao":"2026-06-01",
-    "data_vencimento":"2026-06-10",
+    "data_criacao":1780272000000,
+    "data_vencimento":1781049600000,
     "prioridade":"Média"
   }
 ]

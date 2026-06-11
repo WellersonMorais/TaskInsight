@@ -3,3 +3,4 @@ backend/node_modules/
 .env
 backend/local-db.json
 *.env
+local-db.json

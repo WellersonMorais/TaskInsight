@@ -1054,6 +1054,19 @@
       "data_criacao": "2026-06-11T03:20:59.602Z",
       "id": 66,
       "data_conclusao": "2026-06-11T04:03:08.935Z"
+    },
+    {
+      "titulo": "Ajustar plataforma para acessibilidade",
+      "descricao": "Chamar o pessoal da T.I para resolver.",
+      "status": "pendente",
+      "publico_alvo": "Geral",
+      "categoria": "Plataforma Interna",
+      "responsavel": "Henrique Alves",
+      "prioridade": "media",
+      "estimativa_horas": 5,
+      "user_id": 4,
+      "data_criacao": "2026-06-11T14:42:42.340Z",
+      "id": 67
     }
   ],
   "responsaveis": [

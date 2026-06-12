@@ -11,6 +11,7 @@
 
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
+import { ToastProvider } from './contexts/ToastContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout/Layout';
 
@@ -26,6 +27,7 @@ function App() {
   return (
     // AuthProvider envolve tudo para que qualquer página possa acessar o estado de login
     <AuthProvider>
+      <ToastProvider>
       <BrowserRouter>
         <Routes>
 
@@ -78,6 +80,7 @@ function App() {
 
         </Routes>
       </BrowserRouter>
+      </ToastProvider>
     </AuthProvider>
   );
 }

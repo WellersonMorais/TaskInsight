@@ -8,8 +8,22 @@
 /* Área de conteúdo principal à direita da sidebar */
 .layout__content {
   flex: 1;
-  margin-left: 200px; /* Largura da sidebar */
+  margin-left: 200px; /* Largura da sidebar no desktop */
   padding: 32px 40px;
   background-color: var(--color-bg);
   max-width: 1400px;
+}
+
+/* ─── Mobile ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .layout__content {
+    margin-left: 0;       /* Sidebar vira overlay, não empurra conteúdo */
+    padding: 80px 20px 32px; /* Espaço no topo para o botão hamburger */
+  }
+}
+
+@media (max-width: 480px) {
+  .layout__content {
+    padding: 80px 16px 24px;
+  }
 }

@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 import { getAnalytics, getSummary } from '../../services/api';
 import { useAuth } from '../../contexts/AuthContext';
 import Header from '../../components/Header/Header';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import './Metricas.css';
 
 // ─── Barra de progresso simples ───────────────────────────────────────────────
@@ -167,7 +168,7 @@ function Metricas() {
     return (
       <div className="metricas">
         <Header title="Métricas" subtitle={subtitle} />
-        <p className="metricas__message">Carregando métricas...</p>
+        <LoadingSpinner message="Carregando métricas..." />
       </div>
     );
   }
@@ -176,7 +177,9 @@ function Metricas() {
     return (
       <div className="metricas">
         <Header title="Métricas" subtitle={subtitle} />
-        <p className="metricas__message metricas__message--error">Erro: {error}</p>
+        <p className="metricas__message metricas__message--error" role="alert">
+          Não foi possível carregar as métricas. Verifique sua conexão e tente novamente.
+        </p>
       </div>
     );
   }

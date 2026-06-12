@@ -5,7 +5,9 @@ import Button from '../../components/Button/Button';
 import Input from '../../components/Input/Input';
 import Badge from '../../components/Badge/Badge';
 import TaskModal from '../../components/TaskModal/TaskModal';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import { useAuth } from '../../contexts/AuthContext';
+import { useToast } from '../../contexts/ToastContext';
 import {
   getTarefas,
   criarTarefa,
@@ -103,9 +105,9 @@ function AdminTaskList({
       </div>
 
       {loading ? (
-        <p className="tarefas__message">Carregando tarefas...</p>
+        <LoadingSpinner message="Carregando tarefas..." />
       ) : error ? (
-        <p className="tarefas__message tarefas__message--error">Erro: {error}</p>
+        <p className="tarefas__message tarefas__message--error">Erro ao carregar tarefas. Tente novamente.</p>
       ) : tarefas.length === 0 ? (
         <p className="tarefas__message">Nenhuma tarefa encontrada.</p>
       ) : (
@@ -234,9 +236,9 @@ function UserTaskList({
 
       <div className="tarefas__table-card">
         {loading ? (
-          <p className="tarefas__message">Carregando tarefas...</p>
+          <LoadingSpinner message="Carregando tarefas..." />
         ) : error ? (
-          <p className="tarefas__message tarefas__message--error">Erro: {error}</p>
+          <p className="tarefas__message tarefas__message--error">Erro ao carregar tarefas. Tente novamente.</p>
         ) : filteredTarefas.length === 0 ? (
           <p className="tarefas__message">
             Você ainda não tem tarefas. Clique em &quot;Nova Tarefa&quot; para criar a primeira.
@@ -340,6 +342,7 @@ function UserTaskList({
 
 function Tarefas() {
   const { user, isAdmin, loading: authLoading } = useAuth();
+  const { showToast } = useToast();
   const [tarefas, setTarefas] = useState([]);
   const [responsaveisList, setResponsaveisList] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -453,13 +456,15 @@ function Tarefas() {
       setSaving(true);
       if (editingTask) {
         await atualizarTarefa(editingTask.id, payload);
+        showToast('Tarefa atualizada com sucesso!', 'success');
       } else {
         await criarTarefa(payload);
+        showToast('Tarefa criada com sucesso!', 'success');
       }
       handleCloseModal();
       await fetchTarefas();
     } catch (err) {
-      alert(err.message || 'Erro ao salvar tarefa.');
+      showToast(err.message || 'Erro ao salvar tarefa. Tente novamente.', 'error');
     } finally {
       setSaving(false);
     }
@@ -468,21 +473,29 @@ function Tarefas() {
   const handleComplete = async (task) => {
     try {
       await atualizarTarefa(task.id, { status: 'concluida' });
+      showToast(`"${task.titulo}" marcada como concluída.`, 'success');
       await fetchTarefas();
     } catch (err) {
-      alert(err.message || 'Erro ao concluir tarefa.');
+      showToast(err.message || 'Erro ao concluir tarefa.', 'error');
     }
   };
 
-  const handleDelete = async (task) => {
-    if (!window.confirm(`Deseja excluir a tarefa "${task.titulo}"?`)) return;
-
-    try {
-      await deletarTarefa(task.id);
-      await fetchTarefas();
-    } catch (err) {
-      alert(err.message || 'Erro ao excluir tarefa.');
-    }
+  const handleDelete = (task) => {
+    showToast(
+      `Deseja excluir a tarefa "${task.titulo}"? Esta ação não pode ser desfeita.`,
+      'confirm',
+      {
+        onConfirm: async () => {
+          try {
+            await deletarTarefa(task.id);
+            showToast('Tarefa excluída com sucesso.', 'success');
+            await fetchTarefas();
+          } catch (err) {
+            showToast(err.message || 'Erro ao excluir tarefa.', 'error');
+          }
+        },
+      }
+    );
   };
 
   const pageNumbers = useMemo(() => {

@@ -36,7 +36,11 @@ function Header({ title, subtitle }) {
         </div>
 
         {/* Avatar: círculo com a inicial do nome */}
-        <div className="header__avatar">
+        <div
+          className="header__avatar"
+          role="img"
+          aria-label={`Avatar de ${user?.name || 'Usuário'}`}
+        >
           {initials}
         </div>
       </div>

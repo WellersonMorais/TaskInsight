@@ -5,7 +5,9 @@ import Button from '../../components/Button/Button';
 import Input from '../../components/Input/Input';
 import Badge from '../../components/Badge/Badge';
 import TaskModal from '../../components/TaskModal/TaskModal';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import { useAuth } from '../../contexts/AuthContext';
+import { useToast } from '../../contexts/ToastContext';
 import {
   getTarefas,
   criarTarefa,
@@ -55,48 +57,57 @@ function AdminTaskList({
       <h2 className="tarefas__admin-title">Lista de tarefas</h2>
 
       <div className="tarefas__admin-filters">
-        <select
-          value={filterStatus}
-          onChange={(e) => setFilterStatus(e.target.value)}
-          aria-label="Filtrar por status"
-        >
-          <option value="">Todos os status</option>
-          <option value="pendente">pendente</option>
-          <option value="andamento">andamento</option>
-          <option value="concluida">concluida</option>
-        </select>
+        <div className="tarefas__filter-group">
+          <label htmlFor="admin-filter-status">Status</label>
+          <select
+            id="admin-filter-status"
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value)}
+          >
+            <option value="">Todos os status</option>
+            <option value="pendente">Pendente</option>
+            <option value="andamento">Em andamento</option>
+            <option value="concluida">Concluída</option>
+          </select>
+        </div>
 
-        <input
-          type="text"
-          placeholder="Filtrar por categoria"
-          value={filterCategoria}
-          onChange={(e) => setFilterCategoria(e.target.value)}
-        />
+        <div className="tarefas__filter-group">
+          <label htmlFor="admin-filter-categoria">Categoria</label>
+          <input
+            id="admin-filter-categoria"
+            type="text"
+            placeholder="Ex: Acessibilidade Digital"
+            value={filterCategoria}
+            onChange={(e) => setFilterCategoria(e.target.value)}
+          />
+        </div>
 
-        <button
-          type="button"
-          className="tarefas__admin-btn tarefas__admin-btn--primary"
-          onClick={() => onApplyFilters({ status: filterStatus, categoria: filterCategoria.trim() })}
-        >
-          Aplicar filtro
-        </button>
-        <button
-          type="button"
-          className="tarefas__admin-btn tarefas__admin-btn--secondary"
-          onClick={() => {
-            setFilterStatus('');
-            setFilterCategoria('');
-            onClearFilters();
-          }}
-        >
-          Limpar filtro
-        </button>
+        <div className="tarefas__filter-group tarefas__filter-group--actions">
+          <Button
+            variant="primary"
+            size="sm"
+            onClick={() => onApplyFilters({ status: filterStatus, categoria: filterCategoria.trim() })}
+          >
+            Aplicar filtro
+          </Button>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => {
+              setFilterStatus('');
+              setFilterCategoria('');
+              onClearFilters();
+            }}
+          >
+            Limpar filtro
+          </Button>
+        </div>
       </div>
 
       {loading ? (
-        <p className="tarefas__message">Carregando tarefas...</p>
+        <LoadingSpinner message="Carregando tarefas..." />
       ) : error ? (
-        <p className="tarefas__message tarefas__message--error">Erro: {error}</p>
+        <p className="tarefas__message tarefas__message--error">Erro ao carregar tarefas. Tente novamente.</p>
       ) : tarefas.length === 0 ? (
         <p className="tarefas__message">Nenhuma tarefa encontrada.</p>
       ) : (
@@ -107,30 +118,33 @@ function AdminTaskList({
                 <h3>{task.titulo}</h3>
                 <div className="tarefas__admin-card-actions">
                   {task.status !== 'concluida' && (
-                    <button
-                      type="button"
-                      className="tarefas__admin-btn tarefas__admin-btn--primary tarefas__admin-btn--small"
+                    <Button
+                      variant="primary"
+                      size="sm"
                       onClick={() => onComplete(task)}
                     >
                       Concluir
-                    </button>
+                    </Button>
                   )}
-                  <button
-                    type="button"
-                    className="tarefas__admin-btn tarefas__admin-btn--secondary tarefas__admin-btn--small"
+                  <Button
+                    variant="secondary"
+                    size="sm"
                     onClick={() => onDelete(task)}
                   >
                     Excluir
-                  </button>
+                  </Button>
                 </div>
               </div>
 
               <p className="tarefas__admin-desc">{task.descricao || 'Sem descrição.'}</p>
-              <p>Status: <strong>{task.status}</strong></p>
-              <p>Categoria: <strong>{task.categoria || '—'}</strong></p>
-              <p>Responsável: <strong>{task.responsavel || '—'}</strong></p>
-              <p>Prioridade: <strong>{task.prioridade || '—'}</strong></p>
-              <p>Público-alvo: <strong>{task.publico_alvo || '—'}</strong></p>
+
+              <div className="tarefas__admin-card-meta">
+                <p><span className="tarefas__admin-meta-label">Status:</span> <Badge value={task.status} /></p>
+                <p><span className="tarefas__admin-meta-label">Prioridade:</span> <Badge value={task.prioridade} /></p>
+                <p><span className="tarefas__admin-meta-label">Categoria:</span> <strong>{task.categoria || '—'}</strong></p>
+                <p><span className="tarefas__admin-meta-label">Responsável:</span> <strong>{task.responsavel || '—'}</strong></p>
+                <p><span className="tarefas__admin-meta-label">Público-alvo:</span> <strong>{task.publico_alvo || '—'}</strong></p>
+              </div>
             </article>
           ))}
         </div>
@@ -222,9 +236,9 @@ function UserTaskList({
 
       <div className="tarefas__table-card">
         {loading ? (
-          <p className="tarefas__message">Carregando tarefas...</p>
+          <LoadingSpinner message="Carregando tarefas..." />
         ) : error ? (
-          <p className="tarefas__message tarefas__message--error">Erro: {error}</p>
+          <p className="tarefas__message tarefas__message--error">Erro ao carregar tarefas. Tente novamente.</p>
         ) : filteredTarefas.length === 0 ? (
           <p className="tarefas__message">
             Você ainda não tem tarefas. Clique em &quot;Nova Tarefa&quot; para criar a primeira.
@@ -256,7 +270,8 @@ function UserTaskList({
                           <button
                             type="button"
                             className="tarefas__icon-btn"
-                            title="Editar"
+                            title="Editar tarefa"
+                            aria-label={`Editar tarefa: ${task.titulo}`}
                             onClick={() => onOpenEdit(task)}
                           >
                             <Pencil size={16} />
@@ -264,7 +279,8 @@ function UserTaskList({
                           <button
                             type="button"
                             className="tarefas__icon-btn tarefas__icon-btn--danger"
-                            title="Excluir"
+                            title="Excluir tarefa"
+                            aria-label={`Excluir tarefa: ${task.titulo}`}
                             onClick={() => onDelete(task)}
                           >
                             <Trash2 size={16} />
@@ -299,6 +315,8 @@ function UserTaskList({
                     type="button"
                     className={`tarefas__page-btn ${page === safePage ? 'tarefas__page-btn--active' : ''}`}
                     onClick={() => setCurrentPage(page)}
+                    aria-label={`Página ${page}`}
+                    aria-current={page === safePage ? 'page' : undefined}
                   >
                     {page}
                   </button>
@@ -324,6 +342,7 @@ function UserTaskList({
 
 function Tarefas() {
   const { user, isAdmin, loading: authLoading } = useAuth();
+  const { showToast } = useToast();
   const [tarefas, setTarefas] = useState([]);
   const [responsaveisList, setResponsaveisList] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -437,13 +456,15 @@ function Tarefas() {
       setSaving(true);
       if (editingTask) {
         await atualizarTarefa(editingTask.id, payload);
+        showToast('Tarefa atualizada com sucesso!', 'success');
       } else {
         await criarTarefa(payload);
+        showToast('Tarefa criada com sucesso!', 'success');
       }
       handleCloseModal();
       await fetchTarefas();
     } catch (err) {
-      alert(err.message || 'Erro ao salvar tarefa.');
+      showToast(err.message || 'Erro ao salvar tarefa. Tente novamente.', 'error');
     } finally {
       setSaving(false);
     }
@@ -452,21 +473,29 @@ function Tarefas() {
   const handleComplete = async (task) => {
     try {
       await atualizarTarefa(task.id, { status: 'concluida' });
+      showToast(`"${task.titulo}" marcada como concluída.`, 'success');
       await fetchTarefas();
     } catch (err) {
-      alert(err.message || 'Erro ao concluir tarefa.');
+      showToast(err.message || 'Erro ao concluir tarefa.', 'error');
     }
   };
 
-  const handleDelete = async (task) => {
-    if (!window.confirm(`Deseja excluir a tarefa "${task.titulo}"?`)) return;
-
-    try {
-      await deletarTarefa(task.id);
-      await fetchTarefas();
-    } catch (err) {
-      alert(err.message || 'Erro ao excluir tarefa.');
-    }
+  const handleDelete = (task) => {
+    showToast(
+      `Deseja excluir a tarefa "${task.titulo}"? Esta ação não pode ser desfeita.`,
+      'confirm',
+      {
+        onConfirm: async () => {
+          try {
+            await deletarTarefa(task.id);
+            showToast('Tarefa excluída com sucesso.', 'success');
+            await fetchTarefas();
+          } catch (err) {
+            showToast(err.message || 'Erro ao excluir tarefa.', 'error');
+          }
+        },
+      }
+    );
   };
 
   const pageNumbers = useMemo(() => {

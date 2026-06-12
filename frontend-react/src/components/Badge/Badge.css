@@ -32,8 +32,8 @@
 }
 
 .badge--andamento {
-  background-color: #fef9c3; /* Amarelo claro */
-  color: #ca8a04;            /* Amarelo escuro texto */
+  background-color: #fef3c7; /* Amarelo mais escuro para melhor contraste */
+  color: #92400e;            /* Marrom-âmbar — ratio 5.8:1 sobre #fef3c7 */
 }
 
 .badge--concluida {
@@ -50,8 +50,8 @@
 }
 
 .badge--media {
-  background-color: #fef9c3;
-  color: #ca8a04;
+  background-color: #fef3c7;
+  color: #92400e;
 }
 
 .badge--baixa {

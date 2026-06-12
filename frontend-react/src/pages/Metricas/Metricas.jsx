@@ -13,13 +13,21 @@ import { useEffect, useState } from 'react';
 import { getAnalytics, getSummary } from '../../services/api';
 import { useAuth } from '../../contexts/AuthContext';
 import Header from '../../components/Header/Header';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import './Metricas.css';
 
 // ─── Barra de progresso simples ───────────────────────────────────────────────
 function ProgressBar({ value, max, color = 'var(--color-primary)' }) {
   const pct = max > 0 ? Math.min(100, (value / max) * 100) : 0;
   return (
-    <div className="metricas__bar-track" role="progressbar" aria-valuenow={value} aria-valuemax={max}>
+    <div
+      className="metricas__bar-track"
+      role="progressbar"
+      aria-valuenow={value}
+      aria-valuemin={0}
+      aria-valuemax={max}
+      aria-label={`${value} de ${max}`}
+    >
       <div
         className="metricas__bar-fill"
         style={{ width: `${pct}%`, backgroundColor: color }}
@@ -160,7 +168,7 @@ function Metricas() {
     return (
       <div className="metricas">
         <Header title="Métricas" subtitle={subtitle} />
-        <p className="metricas__message">Carregando métricas...</p>
+        <LoadingSpinner message="Carregando métricas..." />
       </div>
     );
   }
@@ -169,7 +177,9 @@ function Metricas() {
     return (
       <div className="metricas">
         <Header title="Métricas" subtitle={subtitle} />
-        <p className="metricas__message metricas__message--error">Erro: {error}</p>
+        <p className="metricas__message metricas__message--error" role="alert">
+          Não foi possível carregar as métricas. Verifique sua conexão e tente novamente.
+        </p>
       </div>
     );
   }

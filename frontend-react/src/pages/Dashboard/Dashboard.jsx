@@ -11,6 +11,7 @@ import { getSummary, getAnalytics } from '../../services/api';
 import { useAuth } from '../../contexts/AuthContext';
 import Header from '../../components/Header/Header';
 import SummaryCard from '../../components/SummaryCard/SummaryCard';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import { FileText, CheckCircle, Users, Clock } from 'lucide-react';
 import { Doughnut, Bar } from 'react-chartjs-2';
 import {
@@ -61,11 +62,21 @@ function Dashboard() {
   }, []);
 
   if (loading) {
-    return <div className="dashboard">Carregando...</div>;
+    return (
+      <div className="dashboard">
+        <LoadingSpinner message="Carregando dados do dashboard..." />
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="dashboard">Erro: {error}</div>;
+    return (
+      <div className="dashboard">
+        <p className="dashboard__message dashboard__message--error" role="alert">
+          Não foi possível carregar os dados. Verifique sua conexão e tente novamente.
+        </p>
+      </div>
+    );
   }
 
   // Calcular dados para os SummaryCards
@@ -243,24 +254,37 @@ function Dashboard() {
       <div className="dashboard__quick-summary">
         <h2 className="dashboard__quick-summary-title">Resumo rápido</h2>
         <div className="dashboard__quick-summary-items">
-          <div className="dashboard__quick-summary-item">
-            <span className="dashboard__quick-summary-highlight">
-              {completionRate}% das tarefas já foram concluídas.
-            </span>{' '}
-            Continue assim!
-          </div>
-          <div className="dashboard__quick-summary-item">
-            <span className="dashboard__quick-summary-highlight">
-              {topCategoria}
-            </span>{' '}
-            É a categoria com mais tarefas ({topCategoriaCount} no total).
-          </div>
-          <div className="dashboard__quick-summary-item">
-            <span className="dashboard__quick-summary-highlight">
-              {topOwner}
-            </span>{' '}
-            É o responsável com mais tarefas ({topOwnerCount} no total).
-          </div>
+          {totalTasks === 0 ? (
+            <div className="dashboard__quick-summary-item">
+              Nenhuma tarefa cadastrada ainda. Crie a primeira na aba{' '}
+              <span className="dashboard__quick-summary-highlight">Tarefas</span>.
+            </div>
+          ) : (
+            <>
+              <div className="dashboard__quick-summary-item">
+                <span className="dashboard__quick-summary-highlight">
+                  {completionRate}% das tarefas já foram concluídas.
+                </span>{' '}
+                {completionRate >= 80 ? 'Excelente desempenho!' : completionRate >= 50 ? 'Continue assim!' : 'Vamos em frente!'}
+              </div>
+              {topCategoria !== 'N/A' && (
+                <div className="dashboard__quick-summary-item">
+                  <span className="dashboard__quick-summary-highlight">
+                    {topCategoria}
+                  </span>{' '}
+                  é a categoria com mais tarefas ({topCategoriaCount} no total).
+                </div>
+              )}
+              {topOwner !== 'N/A' && (
+                <div className="dashboard__quick-summary-item">
+                  <span className="dashboard__quick-summary-highlight">
+                    {topOwner}
+                  </span>{' '}
+                  é o responsável com mais tarefas ({topOwnerCount} no total).
+                </div>
+              )}
+            </>
+          )}
         </div>
       </div>
     </div>

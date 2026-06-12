@@ -121,7 +121,15 @@ function Login() {
               <span className="login-checkbox-custom" />
               Lembrar de mim
             </label>
-            <a href="#" className="login-forgot">Esqueceu a senha?</a>
+            <a
+              href="#"
+              className="login-forgot"
+              onClick={(e) => e.preventDefault()}
+              aria-label="Recuperar senha (em breve)"
+              title="Funcionalidade em breve"
+            >
+              Esqueceu a senha?
+            </a>
           </div>
 
           {/* Mensagem de erro */}

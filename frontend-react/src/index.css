@@ -22,7 +22,7 @@
 
   /* Cores de Texto */
   --color-text: #1a1a2e;          /* Quase preto */
-  --color-text-muted: #6b7280;    /* Cinza para subtítulos */
+  --color-text-muted: #4b5563;    /* Cinza médio — mínimo 4.5:1 sobre fundo claro */
   --color-text-light: #ffffff;
 
   /* Cores de Status */
@@ -76,12 +76,16 @@ button {
   font-family: var(--font-family);
   cursor: pointer;
   border: none;
-  outline: none;
 }
 
 input, select, textarea {
   font-family: var(--font-family);
-  outline: none;
+}
+
+/* Foco visível para navegação por teclado (WCAG 2.4.7) */
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
 img {

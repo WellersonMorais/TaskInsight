@@ -214,8 +214,9 @@
 .tarefas__admin-filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 16px;
   margin-bottom: 20px;
+  align-items: flex-end;
 }
 
 .tarefas__admin-filters select,
@@ -228,28 +229,35 @@
   min-width: 180px;
 }
 
-.tarefas__admin-btn {
-  padding: 10px 16px;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 0.9rem;
+/* Grupo de ações de filtro alinhado ao fundo */
+.tarefas__filter-group--actions {
+  flex-direction: row;
+  gap: 8px;
+  align-items: flex-end;
 }
 
-.tarefas__admin-btn--primary {
-  background: #2563eb;
-  color: #fff;
+/* Meta-informações do card admin */
+.tarefas__admin-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin-top: 4px;
 }
 
-.tarefas__admin-btn--secondary {
-  background: #e5e7eb;
-  color: #111827;
+.tarefas__admin-card-meta p {
+  margin: 0;
+  font-size: 0.88rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-.tarefas__admin-btn--small {
-  padding: 6px 10px;
-  font-size: 0.85rem;
+.tarefas__admin-meta-label {
+  font-weight: 600;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .tarefas__admin-list {
@@ -306,5 +314,10 @@
 
   .tarefas__admin-card-header {
     flex-direction: column;
+  }
+
+  .tarefas__admin-card-meta {
+    flex-direction: column;
+    gap: 6px;
   }
 }

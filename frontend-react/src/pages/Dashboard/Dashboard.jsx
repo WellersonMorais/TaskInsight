@@ -61,11 +61,19 @@ function Dashboard() {
   }, []);
 
   if (loading) {
-    return <div className="dashboard">Carregando...</div>;
+    return (
+      <div className="dashboard">
+        <p className="dashboard__message" role="status" aria-live="polite">Carregando dados...</p>
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="dashboard">Erro: {error}</div>;
+    return (
+      <div className="dashboard">
+        <p className="dashboard__message dashboard__message--error" role="alert">Erro ao carregar dados: {error}</p>
+      </div>
+    );
   }
 
   // Calcular dados para os SummaryCards

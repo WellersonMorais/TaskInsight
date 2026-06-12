@@ -4,6 +4,17 @@
   width: 100%;
 }
 
+/* Estados de feedback */
+.dashboard__message {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  margin-top: 24px;
+}
+
+.dashboard__message--error {
+  color: #dc2626;
+}
+
 /* Summary Cards - grid de 4 cards */
 .dashboard__summary {
   display: grid;

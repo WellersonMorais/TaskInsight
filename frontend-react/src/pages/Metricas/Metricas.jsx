@@ -19,7 +19,14 @@ import './Metricas.css';
 function ProgressBar({ value, max, color = 'var(--color-primary)' }) {
   const pct = max > 0 ? Math.min(100, (value / max) * 100) : 0;
   return (
-    <div className="metricas__bar-track" role="progressbar" aria-valuenow={value} aria-valuemax={max}>
+    <div
+      className="metricas__bar-track"
+      role="progressbar"
+      aria-valuenow={value}
+      aria-valuemin={0}
+      aria-valuemax={max}
+      aria-label={`${value} de ${max}`}
+    >
       <div
         className="metricas__bar-fill"
         style={{ width: `${pct}%`, backgroundColor: color }}

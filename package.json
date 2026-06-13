@@ -1,0 +1,13 @@
+{
+  "name": "taskinsight",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "seed": "npm run seed --prefix backend",
+    "dev": "concurrently --names \"backend,frontend\" --prefix-colors \"cyan,magenta\" \"npm run dev --prefix backend\" \"npm run dev --prefix frontend-react\"",
+    "start": "concurrently --names \"backend,frontend\" --prefix-colors \"cyan,magenta\" \"npm start --prefix backend\" \"npm run dev --prefix frontend-react\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

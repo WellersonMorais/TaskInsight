@@ -255,6 +255,20 @@ exports.insertTasks = async (items) => {
   db.get("tasks").push(...items).write();
 };
 
+exports.createResponsavel = async (data) => {
+  if (useMongo) {
+    const existing = await Responsavel.findOne({ nome: data.nome });
+    if (existing) return existing;
+    const responsavel = new Responsavel(data);
+    return responsavel.save();
+  }
+  const existing = db.get("responsaveis").find({ nome: data.nome }).value();
+  if (existing) return existing;
+  const item = { ...data, id: getNextId("responsaveis") };
+  db.get("responsaveis").push(item).write();
+  return item;
+};
+
 exports.insertResponsaveis = async (items) => {
   if (useMongo) {
     return Responsavel.insertMany(items);

@@ -38,6 +38,8 @@ exports.register = async (req, res) => {
       isAdmin: false,
     });
 
+    await dbStore.createResponsavel({ nome: name });
+
     const userId = user.id || user._id;
 
     res.json({

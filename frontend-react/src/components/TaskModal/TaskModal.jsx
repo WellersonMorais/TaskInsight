@@ -40,6 +40,8 @@ function TaskModal({
   categorias = [],
   responsaveis = [],
   saving = false,
+  isAdmin = false,
+  currentUser = null,
 }) {
   const [form, setForm] = useState(EMPTY_FORM);
   const isEditing = Boolean(task);
@@ -59,9 +61,10 @@ function TaskModal({
         estimativa_horas: task.estimativa_horas ?? '',
       });
     } else {
-      setForm(EMPTY_FORM);
+      const defaultResponsavel = !isAdmin && currentUser?.name ? currentUser.name : '';
+      setForm({ ...EMPTY_FORM, responsavel: defaultResponsavel });
     }
-  }, [isOpen, task]);
+  }, [isOpen, task, isAdmin, currentUser]);
 
   if (!isOpen) return null;
 
@@ -173,17 +176,27 @@ function TaskModal({
                 <label htmlFor="task-responsavel">
                   Responsável <span className="task-modal__required">*</span>
                 </label>
-                <select
-                  id="task-responsavel"
-                  value={form.responsavel}
-                  onChange={handleChange('responsavel')}
-                  required
-                >
-                  <option value="">Selecione o responsável</option>
-                  {responsaveis.map((nome) => (
-                    <option key={nome} value={nome}>{nome}</option>
-                  ))}
-                </select>
+                {isAdmin ? (
+                  <select
+                    id="task-responsavel"
+                    value={form.responsavel}
+                    onChange={handleChange('responsavel')}
+                    required
+                  >
+                    <option value="">Selecione o responsável</option>
+                    {responsaveis.map((nome) => (
+                      <option key={nome} value={nome}>{nome}</option>
+                    ))}
+                  </select>
+                ) : (
+                  <input
+                    id="task-responsavel"
+                    type="text"
+                    value={form.responsavel}
+                    readOnly
+                    className="task-modal__input--readonly"
+                  />
+                )}
               </div>
 
               <div className="task-modal__field">

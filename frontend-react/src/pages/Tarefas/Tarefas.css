@@ -205,8 +205,15 @@
   padding: 24px;
 }
 
+.tarefas__admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
 .tarefas__admin-title {
-  margin: 0 0 20px;
+  margin: 0;
   font-size: 1.35rem;
   color: var(--color-primary);
 }

@@ -2,6 +2,10 @@ const parseNumber = require("../../utils/parseNumber");
 const parseDate = require("../../utils/parseDate");
 
 class TaskParser {
+  constructor(userMap = {}) {
+    this.userMap = userMap;
+  }
+
   parse(rows) {
     return rows.map(item => ({
       id: parseNumber(item.id),
@@ -16,7 +20,8 @@ class TaskParser {
       estimativa_horas: parseNumber(item.estimativa_horas),
       horas_gastas: parseNumber(item.horas_gastas),
       data_criacao: parseDate(item.data_criacao),
-      data_conclusao: parseDate(item.data_conclusao)
+      data_conclusao: parseDate(item.data_conclusao),
+      user_id: this.userMap[item.responsavel] ?? null,
     }));
   }
 }

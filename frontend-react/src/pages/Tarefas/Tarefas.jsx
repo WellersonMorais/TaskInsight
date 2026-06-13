@@ -48,13 +48,20 @@ function AdminTaskList({
   onDelete,
   onApplyFilters,
   onClearFilters,
+  onOpenCreate,
 }) {
   const [filterStatus, setFilterStatus] = useState('');
   const [filterCategoria, setFilterCategoria] = useState('');
 
   return (
     <div className="tarefas__admin-panel">
-      <h2 className="tarefas__admin-title">Lista de tarefas</h2>
+      <div className="tarefas__admin-header">
+        <h2 className="tarefas__admin-title">Lista de tarefas</h2>
+        <Button variant="accent" onClick={onOpenCreate}>
+          <Plus size={18} />
+          Nova Tarefa
+        </Button>
+      </div>
 
       <div className="tarefas__admin-filters">
         <div className="tarefas__filter-group">
@@ -537,6 +544,7 @@ function Tarefas() {
           onDelete={handleDelete}
           onApplyFilters={handleAdminApplyFilters}
           onClearFilters={handleClearFilters}
+          onOpenCreate={handleOpenCreate}
         />
       ) : (
         <UserTaskList
@@ -566,17 +574,17 @@ function Tarefas() {
         />
       )}
 
-      {!isAdmin && (
-        <TaskModal
-          isOpen={modalOpen}
-          onClose={handleCloseModal}
-          onSave={handleSaveTask}
-          task={editingTask}
-          categorias={categorias}
-          responsaveis={responsaveis}
-          saving={saving}
-        />
-      )}
+      <TaskModal
+        isOpen={modalOpen}
+        onClose={handleCloseModal}
+        onSave={handleSaveTask}
+        task={editingTask}
+        categorias={categorias}
+        responsaveis={responsaveis}
+        saving={saving}
+        isAdmin={isAdmin}
+        currentUser={user}
+      />
     </div>
   );
 }

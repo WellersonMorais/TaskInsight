@@ -1,4 +1,5 @@
 const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, "..", ".env"), override: true });
 
 const dbStore = require("./db/store");
 
@@ -8,7 +9,7 @@ const CsvReader =
 const SeedService =
   require("./seed/SeedService");
 
-const dataPath = path.join(__dirname, "..", "dataAnalysis", "data");
+const dataPath = path.join(__dirname, "..", "data");
 
 async function bootstrap() {
   const csvReader =

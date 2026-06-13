@@ -15,11 +15,7 @@ const taskSchema = new mongoose.Schema({
   trim: true },
   prioridade: { type: String, trim: true },
   responsavel: { type: String, trim: true },
-  user: {
-  type:
-    mongoose.Schema.Types.ObjectId,
-  ref: "User"
-  },
+  user_id: { type: String, required: true },
   papel_responsavel: { type: String, trim: true },
   publico_alvo: { type: String, trim: true },
   estimativa_horas: { type: Number },

@@ -1,16 +1,13 @@
 const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, "..", ".env"), override: true });
+
 const express = require("express");
 const cors = require("cors");
-const dotenv = require("dotenv");
 const dbStore = require("./db/store");
 const { ensureAdminUser } = require("./bootstrap/ensureAdmin");
 const authRoutes = require("./routes/authRoutes");
 const taskRoutes = require("./routes/taskRoutes");
 const dataRoutes = require("./routes/dataRoutes");
-
-dotenv.config({
-  path: path.join(__dirname, "..", ".env"),
-});
 
 const app = express();
 app.use(cors());

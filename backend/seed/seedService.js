@@ -1,21 +1,16 @@
-const TaskParser = require("./parsers/TaskParser");
-const ResponsavelParser = require("./parsers/ResponsavelParser");
-const StatusHistoryParser = require("./parsers/StatusHistoryParser");
-const UserSeeder = require("./UserSeeder");
+const TaskParser = require("./parsers/taskParser");
+const ResponsavelParser = require("./parsers/responsavelParser");
+const StatusHistoryParser = require("./parsers/statusHistoryparser");
+const UserSeeder = require("./userSeeder");
 
 class SeedService {
   constructor(csvReader, dbStore) {
     this.csvReader = csvReader;
     this.dbStore = dbStore;
 
-    this.taskParser = new TaskParser();
-    this.responsavelParser =
-      new ResponsavelParser();
-    this.statusParser =
-      new StatusHistoryParser();
-
-    this.userSeeder =
-      new UserSeeder(dbStore);
+    this.responsavelParser = new ResponsavelParser();
+    this.statusParser = new StatusHistoryParser();
+    this.userSeeder = new UserSeeder(dbStore);
   }
 
   async execute() {
@@ -29,33 +24,36 @@ class SeedService {
 
     await this.dbStore.clearAll();
 
-    const [
-      atividades,
-      responsaveis,
-      statusHistorico
-    ] = await Promise.all([
+    const [atividadesRaw, responsaveisRaw, statusHistoricoRaw] = await Promise.all([
       this.csvReader.read("atividades.csv"),
       this.csvReader.read("responsaveis.csv"),
-      this.csvReader.read("status_historico.csv")
+      this.csvReader.read("status_historico.csv"),
     ]);
 
-    await this.dbStore.insertTasks(
-      this.taskParser.parse(atividades)
-    );
+    const responsaveis = this.responsavelParser.parse(responsaveisRaw);
 
-    await this.dbStore.insertResponsaveis(
-      this.responsavelParser.parse(
-        responsaveis
-      )
-    );
-
-    await this.dbStore.insertStatusHistory(
-      this.statusParser.parse(
-        statusHistorico
-      )
-    );
-
+    // 1. Admin
+    console.log("Criando usuário admin...");
     await this.userSeeder.createAdmin();
+
+    // 2. Um usuário por responsável + mapa nome → id
+    console.log("Criando usuários para os responsáveis...");
+    const userMap = await this.userSeeder.createForResponsaveis(responsaveis);
+
+    // 3. Tasks com user_id correto
+    const taskParser = new TaskParser(userMap);
+    await this.dbStore.insertTasks(taskParser.parse(atividadesRaw));
+    console.log(`${atividadesRaw.length} tarefas inseridas.`);
+
+    // 4. Perfis de responsáveis
+    await this.dbStore.insertResponsaveis(responsaveis);
+    console.log(`${responsaveis.length} responsáveis inseridos.`);
+
+    // 5. Histórico de status
+    await this.dbStore.insertStatusHistory(
+      this.statusParser.parse(statusHistoricoRaw)
+    );
+    console.log("Histórico de status inserido.");
   }
 }
 

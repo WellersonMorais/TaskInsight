@@ -18,6 +18,7 @@ import Layout from './components/Layout/Layout';
 // Importando as páginas
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
+import QuemSomos from './pages/QuemSomos/QuemSomos';
 import Cadastro from './pages/Cadastro/Cadastro';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Tarefas from './pages/Tarefas/Tarefas';
@@ -37,6 +38,7 @@ function App() {
           {/* ======================== */}
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/quem-somos" element={<QuemSomos />} />
           <Route path="/cadastro" element={<Cadastro />} />
 
           {/* ==================================== */}

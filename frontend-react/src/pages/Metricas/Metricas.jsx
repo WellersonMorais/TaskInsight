@@ -10,7 +10,7 @@
 // O backend já aplica o filtro por user_id para não-admins.
 
 import { useEffect, useState } from 'react';
-import { getAnalytics, getSummary } from '../../services/api';
+import { getAnalytics, getSummary, downloadRelatorio } from '../../services/api';
 import { useAuth } from '../../contexts/AuthContext';
 import Header from '../../components/Header/Header';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
@@ -137,6 +137,8 @@ function Metricas() {
   const [summary, setSummary] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [generatingReport, setGeneratingReport] = useState(false);
+  const [reportError, setReportError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -159,6 +161,26 @@ function Metricas() {
 
     fetchData();
   }, []);
+
+  const handleDownloadReport = async () => {
+    try {
+      setGeneratingReport(true);
+      setReportError(null);
+      const blob = await downloadRelatorio();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'relatorio_produtividade.pdf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      setReportError(err.message || 'Erro ao gerar relatório.');
+    } finally {
+      setGeneratingReport(false);
+    }
+  };
 
   const subtitle = isAdmin
     ? 'Acompanhe indicadores e o desempenho de toda a equipe.'
@@ -187,6 +209,21 @@ function Metricas() {
   return (
     <div className="metricas">
       <Header title="Métricas" subtitle={subtitle} />
+
+      {/* Botão de relatório Python */}
+      <div className="metricas__report-bar">
+        <button
+          className={`metricas__report-btn${generatingReport ? ' metricas__report-btn--loading' : ''}`}
+          onClick={handleDownloadReport}
+          disabled={generatingReport}
+          aria-label="Gerar e baixar relatório de produtividade em PDF"
+        >
+          {generatingReport ? 'Gerando relatório…' : 'Baixar Relatório PDF'}
+        </button>
+        {reportError && (
+          <span className="metricas__report-error" role="alert">{reportError}</span>
+        )}
+      </div>
 
       {/* Cards de resumo rápido */}
       <ResumoCards summary={summary} avgLeadTimeDays={analytics?.avgLeadTimeDays ?? 0} />

@@ -9,11 +9,11 @@ class Config:
     """Configurações gerais do projeto"""
     
     # Backend
-    BACKEND_URL = os.getenv('BACKEND_URL', 'http://localhost:5000')
+    BACKEND_URL = os.getenv('BACKEND_URL', 'http://127.0.0.1:5000')
     API_TOKEN = os.getenv('API_TOKEN', '')
     
     # Banco de dados
-    MONGODB_URI = os.getenv('MONGODB_URI', 'mongodb://localhost:27017/taskinsight')
+    MONGODB_URI = os.getenv('MONGODB_URI', 'mongodb://127.0.0.1:27017/taskinsight')
     
     # Caminhos
     PROJECT_ROOT = Path(__file__).resolve().parent.parent

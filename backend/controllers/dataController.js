@@ -1,3 +1,7 @@
+const path = require("path");
+const fs = require("fs");
+const os = require("os");
+const { execFile } = require("child_process");
 const dbStore = require("../db/store");
 
 exports.getSummary = async (req, res) => {
@@ -44,6 +48,39 @@ exports.getStatusHistory = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Erro ao buscar histórico de status" });
   }
+};
+
+exports.generateReport = (req, res) => {
+  const scriptPath = path.join(__dirname, "..", "..", "data", "report_generator.py");
+  const outputPath = path.join(os.tmpdir(), `relatorio_produtividade_${Date.now()}.pdf`);
+
+  execFile("python3", [scriptPath, outputPath], { timeout: 30000 }, (error, stdout, stderr) => {
+    if (error) {
+      console.error("Erro ao gerar relatório:", stderr || error.message);
+      return res.status(500).json({
+        error: "Erro ao gerar relatório. Verifique se o Python e as dependências estão instalados.",
+      });
+    }
+
+    const pdfPath = stdout.trim() || outputPath;
+
+    if (!fs.existsSync(pdfPath)) {
+      return res.status(500).json({ error: "Arquivo de relatório não encontrado após execução." });
+    }
+
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", 'attachment; filename="relatorio_produtividade.pdf"');
+
+    const stream = fs.createReadStream(pdfPath);
+    stream.pipe(res);
+    stream.on("close", () => fs.unlink(pdfPath, () => {}));
+    stream.on("error", (err) => {
+      console.error("Erro ao enviar PDF:", err);
+      if (!res.headersSent) {
+        res.status(500).json({ error: "Erro ao enviar o relatório." });
+      }
+    });
+  });
 };
 
 exports.getAnalytics = async (req, res) => {

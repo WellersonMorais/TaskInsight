@@ -19,8 +19,7 @@ function Home() {
         <div className="home-header-right">
           <nav className="home-nav">
             <Link to="/" className="home-nav-link">Home</Link>
-            <a href="#quem-somos" className="home-nav-link">Quem somos?</a>
-            <a href="#beneficios" className="home-nav-link">Benefícios</a>
+            <Link to="/quem-somos" className="home-nav-link">Quem somos?</Link>
           </nav>
 
           <div className="home-header-actions">

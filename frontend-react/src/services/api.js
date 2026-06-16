@@ -102,3 +102,24 @@ export const getAnalytics = () =>
 
 export const getResponsaveis = () =>
   request('/api/data/responsaveis', { headers: getHeaders() });
+
+// Baixa o relatório de produtividade gerado pelo script Python (retorna Blob PDF)
+export const downloadRelatorio = async () => {
+  const token = localStorage.getItem(TOKEN_KEY);
+  const res = await fetch('/api/data/relatorio', {
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+  });
+
+  if (res.status === 401) {
+    localStorage.removeItem(TOKEN_KEY);
+    window.location.href = '/login';
+    return;
+  }
+
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.error || `Erro ${res.status}`);
+  }
+
+  return res.blob();
+};

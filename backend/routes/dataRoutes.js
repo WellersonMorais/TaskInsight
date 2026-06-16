@@ -4,6 +4,7 @@ const {
   getResponsaveis,
   getStatusHistory,
   getAnalytics,
+  generateReport,
 } = require("../controllers/dataController");
 const auth = require("../middlewares/authMiddleware");
 
@@ -13,5 +14,6 @@ router.get("/summary", getSummary);
 router.get("/analytics", getAnalytics);
 router.get("/responsaveis", getResponsaveis);
 router.get("/status-history", getStatusHistory);
+router.get("/relatorio", generateReport);
 
 module.exports = router;

@@ -1,40 +1,44 @@
 // src/pages/QuemSomos/QuemSomos.jsx
 import { useNavigate, Link } from 'react-router-dom';
 import Button from '../../components/Button/Button';
-import logoImg from '../../assets/logo-amarelo.svg'; // Reutilizando a logo da home
+import logoImg from '../../assets/logo-amarelo.svg';
+import fotoWellerson from '../../assets/wellerson_Paulo.jpeg';
+import fotoYasmin from '../../assets/Yasmin.png';
+import fotoJessica from '../../assets/Jessica.png';
+import fotoManu from '../../assets/Manu.png';
+import fotoLaura from '../../assets/Laura.png';
 import './QuemSomos.css';
-
 
 const equipe = [
   {
     id: 1,
     nome: "Wellerson Morais",
-    cargo: "Product Manager",
-    foto: "https://via.placeholder.com/150/e9eff8/0f3460?text=Wellerson", 
+    cargo: "Full-Stack Developer",
+    foto: fotoWellerson,
   },
   {
     id: 2,
-    nome: "Dev Com Yas",
-    cargo: "Desenvolvedora Front-end",
-    foto: "https://via.placeholder.com/150/e9eff8/0f3460?text=yas",
+    nome: "Yasmin Lopes",
+    cargo: "Front-end Developer",
+    foto: fotoYasmin,
   },
   {
     id: 3,
     nome: "Jessica Costa",
     cargo: "Data Analyst",
-    foto: "https://via.placeholder.com/150/e9eff8/0f3460?text=Jessica",
+    foto: fotoJessica,
   },
   {
     id: 4,
     nome: "Manu Andrade",
-    cargo: "Gerente de Projetos",
-    foto: "https://via.placeholder.com/150/e9eff8/0f3460?text=Manu",
+    cargo: "Scrum Master",
+    foto: fotoManu,
   },
   {
     id: 5,
-    nome: "Laura",
-    cargo: "QA Engineer",
-    foto: "https://via.placeholder.com/150/e9eff8/0f3460?text=Laura",
+    nome: "Laura Celestino",
+    cargo: "Quality Assurance",
+    foto: fotoLaura,
   }
 ];
 
@@ -42,10 +46,10 @@ function QuemSomos() {
   const navigate = useNavigate();
 
   return (
-    // Reutilizamos a classe home-container para manter o fundo e comportamento
+    // Reutilizando a classe home-container 
     <div className="home-container">
       
-      {/* Cabeçalho Institucional (Idêntico ao da Home para consistência) */}
+      {/* Cabeçalho Institucional */}
       <header className="home-header">
         <Link to="/" className="home-logo-link" aria-label="Ir para a página inicial do PontoFocal">
           <img src={logoImg} alt="Logotipo PontoFocal" className="home-logo" />

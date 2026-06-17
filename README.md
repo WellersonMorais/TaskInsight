@@ -1,92 +1,117 @@
-# Projeto TaskInsight
+# TaskInsight
 
-Aplicação completa com backend, frontend e dados reais do dataset `Inova.PCD`, apresentada como plataforma `TaskInsight`.
+Plataforma de gerenciamento e análise de tarefas construída sobre dados reais do dataset **Inova.PCD**. Permite visualizar métricas de produtividade, histórico de status e desempenho por responsável.
 
-## Estrutura
+## Tecnologias
 
-- `backend/` - API Node.js + Express + MongoDB
-- `frontend/` - dashboard simples em HTML/JS
-- `data/` - CSVs do dataset
-- `.env.example` - variáveis de ambiente de exemplo
-- `.gitignore` - ignore de dependências e `.env`
+| Camada | Stack |
+|---|---|
+| Backend | Node.js · Express · MongoDB · JWT |
+| Frontend | React 19 · Vite · Chart.js · React Router |
+| Análise de dados | Python · pandas |
+
+## Estrutura do projeto
+
+```
+TaskInsight/
+├── backend/          # API REST (Node.js + Express)
+│   ├── controllers/  # Lógica das rotas
+│   ├── models/       # Schemas Mongoose
+│   ├── routes/       # Definição das rotas
+│   ├── middlewares/  # Autenticação JWT
+│   ├── seed/         # Importação dos CSVs
+│   └── server.js     # Ponto de entrada
+├── frontend-react/   # SPA (React + Vite)
+│   └── src/
+│       └── pages/    # Home · Login · Cadastro · Dashboard · Tarefas · Métricas · Quem Somos
+├── dataAnalysis/     # Scripts Python de análise
+└── data/             # CSVs do dataset Inova.PCD
+```
 
 ## Pré-requisitos
 
-- Node.js instalado
-- MongoDB local ou Atlas
+- Node.js 18+
+- MongoDB local ou Atlas (opcional — há fallback para arquivo local)
+- Python 3.10+ (apenas para análise de dados)
 
-## Instalação
+## Instalação e execução
 
-1. Entre na pasta do backend:
+### Backend
 
 ```bash
 cd backend
-```
-
-2. Instale as dependências:
-
-```bash
 npm install
+cp ../.env.example ../.env   # configure as variáveis de ambiente
+npm run seed                  # importa os dados dos CSVs
+npm start                     # inicia na porta 5000 (tenta 5001 se ocupada)
 ```
 
-3. Crie o arquivo `.env` com base em `.env.example`.
-
-## Importar dados para o MongoDB
-
-No diretório `backend` rode:
+### Frontend
 
 ```bash
-npm run seed
+cd frontend-react
+npm install
+npm run dev                   # inicia em http://localhost:5173
 ```
 
-Isso importa:
-- `atividades.csv`
-- `responsaveis.csv`
-- `status_historico.csv`
-- usuário padrão para login
+### Análise de dados (opcional)
+
+```bash
+cd dataAnalysis
+python -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+python run_analysis.py
+```
+
+## Variáveis de ambiente
+
+Crie um arquivo `.env` na raiz do projeto com base em `.env.example`:
+
+| Variável | Descrição |
+|---|---|
+| `MONGO_URI` | URI de conexão ao MongoDB |
+| `JWT_SECRET` | Chave secreta para assinatura dos tokens |
+| `PORT` | Porta do servidor (padrão: `5000`) |
+
+> Se `MONGO_URI` não estiver configurado ou o MongoDB estiver indisponível, o backend utiliza automaticamente `backend/utils/local-db.json` como banco de dados local.
 
 ## Usuário padrão
 
-- Email: `admin@taskinsight.com`
-- Senha: `senha123`
+| Campo | Valor |
+|---|---|
+| E-mail | `admin@taskinsight.com` |
+| Senha | `senha123` |
 
-## Executar a aplicação
+## API — Endpoints
 
-No diretório `backend` rode:
+### Autenticação
 
-```bash
-npm start
-```
+| Método | Rota | Descrição |
+|---|---|---|
+| `POST` | `/api/auth/register` | Cadastra novo usuário |
+| `POST` | `/api/auth/login` | Autenticação e geração do token JWT |
 
-Depois abra no navegador na porta exibida no console.
+### Tarefas `[requer token]`
 
-Se a porta `5000` estiver ocupada, o servidor tentará `5001` automaticamente.
+| Método | Rota | Descrição |
+|---|---|---|
+| `GET` | `/api/tasks` | Lista todas as tarefas |
+| `POST` | `/api/tasks` | Cria nova tarefa |
+| `PUT` | `/api/tasks/:id` | Atualiza tarefa |
+| `DELETE` | `/api/tasks/:id` | Remove tarefa |
 
-## Endpoints disponíveis
+### Dados e métricas
 
-- `POST /api/auth/register` - registra usuário
-- `POST /api/auth/login` - gera token JWT
-- `GET /api/tasks` - lista tarefas (autorizado)
-- `POST /api/tasks` - cria tarefa (autorizado)
-- `PUT /api/tasks/:id` - atualiza tarefa (autorizado)
-- `DELETE /api/tasks/:id` - remove tarefa (autorizado)
-- `GET /api/data/summary` - resumo das tarefas
-- `GET /api/data/analytics` - métricas adicionais
-- `GET /api/data/responsaveis` - lista responsáveis
-- `GET /api/data/status-history` - histórico de status
+| Método | Rota | Descrição |
+|---|---|---|
+| `GET` | `/api/data/summary` | Resumo geral das tarefas |
+| `GET` | `/api/data/analytics` | Métricas detalhadas |
+| `GET` | `/api/data/responsaveis` | Lista de responsáveis |
+| `GET` | `/api/data/status-history` | Histórico de mudanças de status |
 
-## Frontend
+## Funcionalidades do frontend
 
-- Login com JWT
-- Criação de tarefas
-- Lista de tarefas com filtro por status e categoria
-- Concluir e excluir tarefas
-- Gráficos de status e categoria
+- Autenticação com JWT (token armazenado no `localStorage`)
+- Dashboard com gráficos de status e categoria
+- Gerenciamento de tarefas com filtros
 - Métricas de taxa de conclusão e lead time
-
-## Observações
-
-- O frontend é servido pela mesma API Express.
-- O login usa JWT e o token fica salvo no `localStorage`.
-- Se o MongoDB não estiver disponível, o backend usa um banco local em `backend/local-db.json`.
-- Se a porta `5000` já estiver ocupada, o servidor tentará `5001`.

@@ -210,21 +210,6 @@ function Metricas() {
     <div className="metricas">
       <Header title="Métricas" subtitle={subtitle} />
 
-      {/* Botão de relatório Python */}
-      <div className="metricas__report-bar">
-        <button
-          className={`metricas__report-btn${generatingReport ? ' metricas__report-btn--loading' : ''}`}
-          onClick={handleDownloadReport}
-          disabled={generatingReport}
-          aria-label="Gerar e baixar relatório de produtividade em PDF"
-        >
-          {generatingReport ? 'Gerando relatório…' : 'Baixar Relatório PDF'}
-        </button>
-        {reportError && (
-          <span className="metricas__report-error" role="alert">{reportError}</span>
-        )}
-      </div>
-
       {/* Cards de resumo rápido */}
       <ResumoCards summary={summary} avgLeadTimeDays={analytics?.avgLeadTimeDays ?? 0} />
 
@@ -232,6 +217,21 @@ function Metricas() {
       <div className="metricas__panels">
         <ConclusaoPorCategoria finishRateByCategory={analytics?.finishRateByCategory} />
         <RankingResponsaveis tasksByOwner={analytics?.tasksByOwner} />
+      </div>
+
+       {/* Botão de relatório Python */}
+      <div className="metricas__report-bar">
+        <button
+          className={`metricas__report-btn${generatingReport ? ' metricas__report-btn--loading' : ''}`}
+          onClick={handleDownloadReport}
+          disabled={generatingReport}
+          aria-label="Gerar e baixar relatório de produtividade em PDF"
+        >
+          {generatingReport ? 'Gerando relatório…' : 'Baixar Relatório da equipe'}
+        </button>
+        {reportError && (
+          <span className="metricas__report-error" role="alert">{reportError}</span>
+        )}
       </div>
     </div>
   );
